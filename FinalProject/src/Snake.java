@@ -28,7 +28,10 @@ class snake {
     }
 
     char direction = 'w';
-
+    
+    System.out.print("\033[H\033[2J");  
+    System.out.flush(); 
+    
     System.out.println("Welcome to the game! Press any key to begin.");
 
     int x = 2;
