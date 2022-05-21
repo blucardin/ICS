@@ -6,41 +6,44 @@ import java.util.ArrayList;
 
 
 class snake {
+
+  static Scanner key = new Scanner(System.in); 
   
-  public static void snake(String[] args) {
-
-    Scanner input = new Scanner(System.in);
-
+  public static void game(String[] args) {
     final char BACKROUND = '.';
     final int SIZE = 20;
+    final int[] STARTING_POS = {SIZE/2, SIZE/2};
     ArrayList<ArrayList<Integer>> blocks = new ArrayList<ArrayList<Integer>>();
-    blocks.add(new ArrayList<Integer>(Arrays.asList(SIZE/2, SIZE/2)));
-    blocks.add(new ArrayList<Integer>(Arrays.asList((SIZE/2), (SIZE/2)-1)));
+    blocks.add(new ArrayList<Integer>(Arrays.asList(STARTING_POS[0], STARTING_POS[1] - 1))); //create starting snake
+    blocks.add(new ArrayList<Integer>(Arrays.asList(STARTING_POS[0], STARTING_POS[1]))); //create starting snake 
 
     Random rand = new Random();
-    ArrayList<Integer> newBlock = new ArrayList<Integer>(Arrays.asList(rand.nextInt(SIZE), rand.nextInt(SIZE)));
+    ArrayList<Integer> Target = new ArrayList<Integer>(Arrays.asList(rand.nextInt(SIZE), rand.nextInt(SIZE))); //create random target
 
-    char[][] string = new char[SIZE][SIZE * 2];
-    for (int i = 0; i < SIZE; i++) {
-      for (int j = 0; j < SIZE * 2; j++) {
-        string[i][j] = BACKROUND;
+    char[][] board = new char[SIZE][SIZE * 2]; //create game board
+    for (int i = 0; i < SIZE; i++) { //fill board with dots
+      for (int j = 0; j < SIZE * 2; j++) { 
+        board[i][j] = BACKROUND;
       }
     }
 
     char direction = 'w';
     
-    System.out.print("\033[H\033[2J");  
-    System.out.flush(); 
-    
     System.out.println("Welcome to the game! Press any key to begin.");
 
-    int x = 2;
-    int y = 2;
+    int x = STARTING_POS[0];
+    int y = STARTING_POS[1];
     boolean triggered = true;
     String character = new String();
+    boolean firstTime = true;
     
     while (true) { 
-      character = input.next();
+      if (firstTime == true) {
+        character = "d";
+        firstTime = false;
+      } else {
+        character = key.next();
+      }
       System.out.println(direction);
       if (character.equals("w") && direction != 's') {
         direction = 'w';
@@ -60,7 +63,7 @@ class snake {
       }else if (character.equals("p")) {
         System.out.println("Game Paused");
         while (true) {
-          character = input.next();
+          character = key.next();
           if (character.equals("p")) {
             break;
           }
@@ -76,7 +79,7 @@ class snake {
       if (triggered) {
         for (int i = 0; i < SIZE; i++) {
           for (int j = 0; j < SIZE * 2; j++) {
-            string[i][j] = BACKROUND;
+            board[i][j] = BACKROUND;
           }
         }
         
@@ -91,8 +94,8 @@ class snake {
 
         blocks.add(coords);
 
-        if (blocks.contains(newBlock)) {
-          newBlock = new ArrayList<Integer>(Arrays.asList(rand.nextInt(SIZE), rand.nextInt(SIZE)));
+        if (blocks.contains(Target)) {
+          Target = new ArrayList<Integer>(Arrays.asList(rand.nextInt(SIZE), rand.nextInt(SIZE)));
         } else {
           blocks.remove(0);
         }
@@ -100,24 +103,62 @@ class snake {
       triggered = true;
 
       for (int i = 0; i < blocks.size(); i++) {
-        string [blocks.get(i).get(0)][blocks.get(i).get(1)] = '*';
+        board [blocks.get(i).get(0)][blocks.get(i).get(1)] = '*';
       }
-      string [newBlock.get(0)][newBlock.get(1)] = '0';
+      board [Target.get(0)][Target.get(1)] = '0';
       
       for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE * 2; j++) {
-          if (string[i][j] == '*'){
-            System.out.print( "\033[0;32m" + string[i][j] + "\033[0m");
+          if (board[i][j] == '*'){
+            System.out.print( "\033[0;32m" + board[i][j] + "\033[0m");
           }
-          else if (string[i][j] == '0'){
-            System.out.print("\033[0;31m" + string[i][j] + "\033[0m");
+          else if (board[i][j] == '0'){
+            System.out.print("\033[0;31m" + board[i][j] + "\033[0m");
           }
           else {
-            System.out.print(string[i][j]);
+            System.out.print(board[i][j]);
           }
         }
         System.out.println();
       }
     }    
+  }
+
+  public static void menu(String[] args) throws InterruptedException {
+    while (true) {
+      System.out.print("\033[H\033[2J");  
+      System.out.flush(); 
+      System.out.println("Welcome to Snake!");
+
+      Thread.sleep(1000);
+      System.out.println("Enter a number for your selection:");
+      System.out.println("1. Snake Game");
+      System.out.println("2. Exit to Main Menu");
+      System.out.println("3. How to play");
+      System.out.println("4. Shop");
+
+      String selection = key.next();
+
+      switch (selection){
+        case "1":
+          game(args);
+          break;
+
+        case "2":
+          System.out.println("Goodbye!");
+          System.exit(0);
+          break;        
+        case "3":
+          System.out.println("How to play: ");
+          System.out.println("Use w, a, s, and d keys to move the snake.");
+          System.out.println("Eat the 0 to grow.");
+          System.out.println("Avoid the walls and yourself.");
+          System.out.println("Press 'p' to pause the game.");
+          System.out.println("Press 'q' to quit the game.");
+          break;
+        default:
+          System.out.println("Invalid input, please try again.");
+      }
+  }
   }
 }
