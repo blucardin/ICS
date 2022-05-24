@@ -2,27 +2,43 @@ import java.util.Scanner;
 public class jeopardy {
 
   //creade 2d array
-  public static int[][] matrix = { // define question value matrix
+  public static int[][] points = { // define question value matrix
     {100, 200, 300},
     {100, 200, 300},
     {100, 200, 300},
     {100, 200, 300},
+  };
+
+  public static String[][] questions = { // define question value matrix
+    {"Question1,1", "Question1,2", "Question1,3"},
+    {"Question2,1", "Question2,2", "Question2,3"},
+    {"Question3,1", "Question3,2", "Question3,3"},
+    {"Question4,1", "Question4,2", "Question4,3"},
+  };
+
+  public static String[][] answers = { // define answer value matrix
+    {"answer1,1", "answer1,2", "answer1,3"},
+    {"answer2,1", "answer2,2", "answer2,3"},
+    {"answer3,1", "answer3,2", "answer3,3"},
+    {"answer4,1", "answer4,2", "answer4,3"},
   };
 
   public static String[] sections = { // define section matrix
-    "Section1", "Section2", "Section3",
+    "Section1", "Section2", "Section3","Section4",
   };
 
-  static Scanner key = new Scanner(System.in); 
+  static Scanner key = new Scanner(System.in); //create new scanner
 
   public static void printout(String[] args){
+    System.out.print("\033[H\033[2J");  //flush the screen
+    System.out.flush(); 
     for (int w = 0; w < sections.length; w++){  //print out the sections
-      System.out.print(w + "." + sections[w] + " | ");
+      System.out.print((w+1) + "." + sections[w] + " | ");
     }
     System.out.println();
-    for (int i = 0; i < matrix[0].length; i++) { // print out the points array
-      for (int j = 0; j < matrix.length; j++) {
-        System.out.print("   " + matrix[j][i] + "   |");
+    for (int i = 0; i < points[0].length; i++) { // print out the points array
+      for (int j = 0; j < points.length; j++) {
+        System.out.print("   " + points[j][i] + "   |");
       }
       System.out.println();
     }
@@ -30,16 +46,42 @@ public class jeopardy {
 
   }
   
-  public static void game(String[] args){
+  public static void game(String[] args) throws InterruptedException {
     boolean run = true; 
     while (run) {
+
       printout(args);
-      System.out.println("Pick a section number:");
-      String section = key.next();
-      System.out.println("Pick a question number:");
-      String question = key.next();
-      
+
+      System.out.println("Pick a section number (1, 2, 3, or 4):");
+      int section = key.nextInt();
+      System.out.println("Pick a question number (100, 200, or 300):");
+      int question = key.nextInt();
+      Thread.sleep(1000);
+
+      System.out.println("You chose " + sections[section] + " for " + question);
+      Thread.sleep(1000);
+
+      System.out.println("Your question is" + questions[section][(question/100) - 1]);
+      System.out.println("Enter your answer:");
+      String answer = key.next();
+
+      if (answer.equals(answers[section][(question/100) - 1])) {
+        System.out.println("Correct!");
       }
+      else {
+        System.out.println("Wrong!");
+      }
+      System.out.println("Play again? (y/n)");
+      String play = key.next();
+      if (play.equals("y")) {
+        run = true;
+      }
+      else {
+        run = false;
+      }
+    }
+      
+      
   }
 
     public static void menu(String[] args) throws InterruptedException {

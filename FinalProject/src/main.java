@@ -31,6 +31,9 @@ public class main {
               System.exit(0);
               key.close();
               break;
+            default:
+              System.out.println("Invalid input. Please try again.");
+              break;
           }
           
         }
