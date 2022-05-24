@@ -17,16 +17,16 @@ public class main {
           System.out.println("2. Jeopardy");
           System.out.println("3. Exit");
         
-          int selection = key.nextInt();
+          String selection = key.next();
         
           switch (selection){
-            case 1:
+            case "1":
               snake.menu(args);
               break;
-            case 2:
-              jeopardy.game(args);
+            case "2":
+              jeopardy.menu(args);
               break;
-            case 3:
+            case "3":
               System.out.println("Goodbye!");
               System.exit(0);
               key.close();
