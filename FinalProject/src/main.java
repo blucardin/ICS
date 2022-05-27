@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class main {
+    public static int coins = 0;
     //throws Exception
     public static void main(String[] args) throws InterruptedException{
         Scanner key = new Scanner(System.in);
@@ -16,6 +17,9 @@ public class main {
           System.out.println("1. Snake");
           System.out.println("2. Jeopardy");
           System.out.println("3. Exit");
+          System.out.println("You have " + coins + " coins to spend!");
+          
+          
         
           String selection = key.next();
         

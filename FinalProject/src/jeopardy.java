@@ -53,7 +53,7 @@ public class jeopardy {
       printout(args);
 
       System.out.println("Pick a section number (1, 2, 3, or 4):");
-      int section = key.nextInt();
+      int section = key.nextInt() - 1;
       System.out.println("Pick a question number (100, 200, or 300):");
       int question = key.nextInt();
       Thread.sleep(1000);
@@ -65,12 +65,31 @@ public class jeopardy {
       System.out.println("Enter your answer:");
       String answer = key.next();
 
-      if (answer.equals(answers[section][(question/100) - 1])) {
-        System.out.println("Correct!");
+      boolean correct = false;
+
+      for (int i = 1; i <= 3; i++){
+        if (answer.equals(answers[section][(question/100) - 1])) {
+          System.out.println("Correct!");
+          int coinIncrease = question - (i*50);
+          System.out.println("You earned " + coinIncrease + " coins.");
+          main.coins += coinIncrease;
+          
+          correct = true;
+          break;
+        }
+        else {
+          System.out.println("Wrong!");
+          System.out.println("Try again, you have " + (i-3) +" more chances");
+        }
       }
-      else {
-        System.out.println("Wrong!");
+      
+      if (correct == false){
+         System.out.println("You are out of chances, try another question.");
       }
+
+      
+      
+      
       System.out.println("Play again? (y/n)");
       String play = key.next();
       if (play.equals("y")) {
@@ -85,7 +104,8 @@ public class jeopardy {
   }
 
     public static void menu(String[] args) throws InterruptedException {
-    while (true) {
+    boolean run = true;
+    while (run) {
       System.out.print("\033[H\033[2J");  //flush the screen
       System.out.flush(); 
       System.out.println("Welcome to Jeopardy!");//print welcome message
@@ -107,7 +127,9 @@ public class jeopardy {
         case "2":
           System.out.println("Goodbye!"); // if they entered 2, print goodbye, wait, and go back to main menu
           Thread.sleep(1000);
-          System.exit(0);
+          System.out.print("\033[H\033[2J");  //flush the screen
+          System.out.flush(); 
+          run = false;
           break;        
         case "3": // if they entered 3, print the rules, wait for input, then go to the biggining
           System.out.print("\033[H\033[2J");  //flush the screen
