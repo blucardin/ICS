@@ -72,7 +72,7 @@ public class jeopardy {
           System.out.println("Correct!");
           int coinIncrease = question - (i*50);
           System.out.println("You earned " + coinIncrease + " coins.");
-          main.coins += coinIncrease;
+          app.coins += coinIncrease;
           
           correct = true;
           break;
@@ -127,8 +127,6 @@ public class jeopardy {
         case "2":
           System.out.println("Goodbye!"); // if they entered 2, print goodbye, wait, and go back to main menu
           Thread.sleep(1000);
-          System.out.print("\033[H\033[2J");  //flush the screen
-          System.out.flush(); 
           run = false;
           break;        
         case "3": // if they entered 3, print the rules, wait for input, then go to the biggining
