@@ -22,11 +22,12 @@ public class app {
 
         
           Thread.sleep(2000);
+          System.out.println("You have " + coins + " coins to spend!\n");
           System.out.println("Enter a number for a game:");
           System.out.println("1. Snake");
           System.out.println("2. Jeopardy");
           System.out.println("3. Exit");
-          System.out.println("You have " + coins + " coins to spend!");
+          
           
           
         

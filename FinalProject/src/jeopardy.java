@@ -47,60 +47,77 @@ public class jeopardy {
   }
   
   public static void game(String[] args) throws InterruptedException {
+    final String CLEAR = "    ";
     boolean run = true; 
     while (run) {
+      while (run) {
+        //loop over questions
+        for (int y = 0; y < questions.length; y++) {
+          for (int x = 0; x < questions[y].length; x++) {
+            if (questions[y][x].equals(CLEAR)) {
+              System.out.println("You have answered all the questions! Thank you for playing!");
+              break;
+            }
+          }
+        }
+      
+        printout(args);
 
-      printout(args);
-
-      System.out.println("Pick a section number (1, 2, 3, or 4):");
-      int section = key.nextInt() - 1;
-      System.out.println("Pick a question number (100, 200, or 300):");
-      int question = key.nextInt();
-      Thread.sleep(1000);
-
-      System.out.println("You chose " + sections[section] + " for " + question);
-      Thread.sleep(1000);
-
-      System.out.println("Your question is" + questions[section][(question/100) - 1]);
-      System.out.println("Enter your answer:");
-      String answer = key.next();
-
-      boolean correct = false;
-
-      for (int i = 1; i <= 3; i++){
-        if (answer.equals(answers[section][(question/100) - 1])) {
-          System.out.println("Correct!");
-          int coinIncrease = question - (i*50);
-          System.out.println("You earned " + coinIncrease + " coins.");
-          app.coins += coinIncrease;
-          
-          correct = true;
+        System.out.println("Pick a section number (1, 2, 3, or 4. Enter 0 to exit.):");
+        int section = key.nextInt() - 1;
+        if (section == -1){
+          run = false;
           break;
         }
-        else {
-          System.out.println("Wrong!");
-          System.out.println("Try again, you have " + (i-3) +" more chances");
+        System.out.println("Pick a question number (100, 200, or 300):");
+        int question = key.nextInt();
+        Thread.sleep(1000);
+
+        System.out.println("You chose " + sections[section] + " for " + question);
+        Thread.sleep(1000);
+
+        System.out.println("Your question is" + questions[section][(question/100) - 1]);
+        System.out.println("Enter your answer:");
+        questions[section][(question/100) - 1] = CLEAR;
+        boolean correct = false;
+
+        for (int i = 1; i <= 3; i++){
+          String answer = key.next();
+          if (answer.equals(answers[section][(question/100) - 1])) {
+            System.out.print("\033[H\033[2J");  //flush the screen
+            System.out.flush(); 
+            System.out.println("You are correct!");
+            int coinIncrease = question - (i*50);
+            System.out.println("You earned " + coinIncrease + " coins.");
+            System.out.println("Enter any key to continue.");
+            key.next();
+            app.coins += coinIncrease;
+            
+            correct = true;
+            break;
+          }
+          else {
+            System.out.println("Wrong!");
+            System.out.println("Try again, you have " + (3-i) +" more chances");
+          }
+        }
+        
+        if (correct == false){
+          System.out.println("You are out of chances, try another question.");
+          System.out.println("Enter any key to continue.");
+          key.next();
         }
       }
       
-      if (correct == false){
-         System.out.println("You are out of chances, try another question.");
+      if (run == true){
+        System.out.println("Play again? (y/n)");
+        String play = key.next();
+        if (!play.equals("y")) {
+          run = false;
+        }
       }
-
       
-      
-      
-      System.out.println("Play again? (y/n)");
-      String play = key.next();
-      if (play.equals("y")) {
-        run = true;
-      }
-      else {
-        run = false;
-      }
-    }
-      
-      
+    }    
   }
 
     public static void menu(String[] args) throws InterruptedException {
