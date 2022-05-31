@@ -26,7 +26,8 @@ public class app {
           System.out.println("Enter a number for a game:");
           System.out.println("1. Snake");
           System.out.println("2. Jeopardy");
-          System.out.println("3. Exit");
+          System.out.println("3. BattleShip");
+          System.out.println("4. Exit");
           
           
           
@@ -41,6 +42,9 @@ public class app {
               jeopardy.menu(args);
               break;
             case "3":
+              battleship.menu(args);
+              break;
+            case "4":
               System.out.println("Goodbye!");
               System.exit(0);
               key.close();
