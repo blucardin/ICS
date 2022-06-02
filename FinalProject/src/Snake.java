@@ -42,38 +42,40 @@ class snake {
         character = "d";
         firstTime = false;
       } else {
-        character = key.next();
+        character = key.nextLine();
       }
-      System.out.println(direction);
-      if (character.equals("w") && direction != 's') { // check the inputed character against the current direction and move the snake accordingly
-        direction = 'w';
-        y--;
-      } else if (character.equals("a") && direction != 'd') {
-        direction = 'a';
-        x--;
-      } else if (character.equals("s") && direction != 'w') {
-        direction = 's';
-        y++;
-      } else if (character.equals("d") && direction != 'a') {
-        direction = 'd';
-        x++;
-      } else if (character.equals("q")) {
-        break;
-      }else if (character.equals("p")) {
-        System.out.println("Game Paused");
-        while (true) {
-          character = key.next();
-          if (character.equals("p")) {
-            break;
+      do {
+        if (character.equals("w") && direction != 's') { // check the inputed character against the current direction and move the snake accordingly
+          direction = 'w';
+          y--;
+          triggered = true;
+        } else if (character.equals("a") && direction != 'd') {
+          direction = 'a';
+          x--;
+          triggered = true;
+        } else if (character.equals("s") && direction != 'w') {
+          direction = 's';
+          y++;
+          triggered = true; 
+        } else if (character.equals("d") && direction != 'a') {
+          direction = 'd';
+          x++;
+          triggered = true;
+        } else if (character.equals("q")) {
+          break;
+        }else if (character.equals("p")) {
+          System.out.println("Game Paused");
+          while (true) {
+            character = key.next();
+            if (character.equals("p")) {
+              break;
+            }
           }
+        } else{
+          character = "" + direction;
+          triggered = false;
         }
-      } else{
-        System.out.println("Invalid input");
-        triggered = false; 
-      }
-
-      System.out.print("\033[H\033[2J");  
-      System.out.flush(); 
+      } while (!triggered);
 
       if (triggered) {
         for (int i = 0; i < SIZE; i++) {
@@ -81,6 +83,9 @@ class snake {
             board[i][j] = BACKROUND;
           }
         }
+
+        System.out.print("\033[H\033[2J");  
+        System.out.flush(); 
         
         ArrayList<Integer> coords = new ArrayList<Integer>();
         coords.add(y);
