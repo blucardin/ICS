@@ -27,31 +27,44 @@ public class app {
           System.out.println("1. Snake");
           System.out.println("2. Jeopardy");
           System.out.println("3. BattleShip");
-          System.out.println("4. Exit");
+          System.out.println("4. Tic Tac Toe");
+          System.out.println("5. Exit");
           
           
           
         
           String selection = key.next();
-        
-          switch (selection){
-            case "1":
-              snake.menu(args);
-              break;
-            case "2":
-              jeopardy.menu(args);
-              break;
-            case "3":
-              battleship.menu(args);
-              break;
-            case "4":
-              System.out.println("Goodbye!");
-              System.exit(0);
-              key.close();
-              break;
-            default:
-              System.out.println("Invalid input. Please try again.");
-              break;
+
+          try {
+            switch (selection){
+              case "1":
+                snake.menu(args);
+                break;
+              case "2":
+                jeopardy.menu(args);
+                break;
+              case "3":
+                battleship.menu(args);
+                break;
+              case "4":
+                tictactoe.menu(args);
+                break;
+              case "5":
+                System.out.println("Goodbye!");
+                System.exit(0);
+                key.close();
+                break;
+              default:
+                System.out.println("Invalid input. Please try again.");
+                break;
+            }
+          } catch (Exception e) {
+            System.out.println("It appears there was an error. Usually this is caused by an invalid input. Please try again.");
+            System.out.println("The error was: ");
+            System.out.println(e);
+            Thread.sleep(1000);
+            System.out.println("Enter any key to return back to the menu:");
+            key.next();
           }
           
         }

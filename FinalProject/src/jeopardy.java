@@ -156,7 +156,7 @@ public class jeopardy {
           System.out.println("Press 'p' to pause the game.");
           System.out.println("Press 'q' to quit the game.");
           Thread.sleep(1000);
-          System.out.println("Press any key to return back to the menu:");
+          System.out.println("Enter any key to return back to the menu:");
           key.next();
           break;
         default:

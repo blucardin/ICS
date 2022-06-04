@@ -3,7 +3,7 @@ import java.util.Random;
 public class battleship {
     // program to play the game battleship
     static Scanner key = new Scanner(System.in); //create new scanner
-    static final char BACKROUND = '~'; //set backround character
+    static final char BACKROUND = '〜'; //set backround character
     static final int SIZE = 20; // Size of the board
     static char[][] board = new char[SIZE][SIZE]; //create game board
     static Random rand = new Random();
@@ -17,22 +17,32 @@ public class battleship {
  
 
 
-    public static void printout(String[] args) { //print out the board
-        System.out.print("\033[H\033[2J"); //flush screen
-        System.out.flush();
+    public static void printout() { //print out the board
+        System.out.print("  ");
         
-        for (int j = 0; j < board[0].length; j++) {
-            System.out.print(j);
+        for (int j = 1; j <= board[0].length; j++) {
+
+            if (j < 10) {
+                System.out.print(" " + j + " ");
+            } else {
+                System.out.print(" " + j);
+            }
+
+
         }
         System.out.println();
-        for (int i = 0; i < board.length; i++) {
-            System.out.print(i);
-            for (int j = 0; j < board[i].length; j++) {
-                System.out.print(board[i][j] + " ");
+        for (int i = 1; i <= board.length; i++) {
+            if (i < 10) {
+                System.out.print(" " + i + " ");
+            } else {
+                System.out.print(i + " ");
+            }
+
+            for (int j = 0; j < board[i-1].length; j++) {
+                System.out.print(board[i-1][j] + " ");
             }
             System.out.println();
         }
-        System.out.println(msg);
     }
 
     public static void game(String[] args) throws InterruptedException {
@@ -48,13 +58,14 @@ public class battleship {
             }
         }
         boolean run = true;
+        printout();
         while (run) {
-            printout(args);
-            System.out.println("Enter a coordinate to fire at: ");
+            System.out.println("Enter an x-coordinate to fire at (1-20): ");
             String input = key.next();
-            String[] coords = input.split(",");
-            int x = Integer.parseInt(coords[0]);
-            int y = Integer.parseInt(coords[1]);
+            int x = Integer.parseInt(input);
+            System.out.println("Enter a y-coordinate to fire at (1-20): ");
+            input = key.next();
+            int y = Integer.parseInt(input);
             if (answers[y][x] == '~') {
                 board[y][x] = 'X';
                 msg = "You missed!";
@@ -64,6 +75,9 @@ public class battleship {
             } else if (answers[y][x] == 'H') {
                 msg = "You already fired at this location!";
             }
+            System.out.print("\033[H\033[2J"); //flush screen
+            System.out.flush();
+            printout();
         }
     }
 
@@ -74,7 +88,7 @@ public class battleship {
         while (run) {
         System.out.print("\033[H\033[2J");  //flush the screen
         System.out.flush(); 
-        System.out.println("Welcome to Jeopardy!");//print welcome message
+        System.out.println("Welcome to Battleship!");//print welcome message
 
         Thread.sleep(1000);   //wait to build suspence
         System.out.println("Enter a number for your selection:"); //print out menu
