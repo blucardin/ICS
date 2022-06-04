@@ -1,25 +1,27 @@
 package Console_Video_Game;
 
-import java.util.Scanner;
-import java.util.Random;
-import java.util.Arrays;
 import java.util.ArrayList;
-
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
 
 class Main {
-  
-  public static void main(String[] args) {
 
+  public static void main(String[] args) {
     Scanner input = new Scanner(System.in);
 
     final char BACKROUND = '.';
     final int SIZE = 20;
     ArrayList<ArrayList<Integer>> blocks = new ArrayList<ArrayList<Integer>>();
-    blocks.add(new ArrayList<Integer>(Arrays.asList(SIZE/2, SIZE/2)));
-    blocks.add(new ArrayList<Integer>(Arrays.asList((SIZE/2), (SIZE/2)-1)));
+    blocks.add(new ArrayList<Integer>(Arrays.asList(SIZE / 2, SIZE / 2)));
+    blocks.add(
+      new ArrayList<Integer>(Arrays.asList((SIZE / 2), (SIZE / 2) - 1))
+    );
 
     Random rand = new Random();
-    ArrayList<Integer> newBlock = new ArrayList<Integer>(Arrays.asList(rand.nextInt(SIZE), rand.nextInt(SIZE)));
+    ArrayList<Integer> newBlock = new ArrayList<Integer>(
+      Arrays.asList(rand.nextInt(SIZE), rand.nextInt(SIZE))
+    );
 
     char[][] string = new char[SIZE][SIZE * 2];
     for (int i = 0; i < SIZE; i++) {
@@ -36,8 +38,8 @@ class Main {
     int y = 2;
     boolean triggered = true;
     String character = new String();
-    
-    while (true) { 
+
+    while (true) {
       character = input.next();
       System.out.println(direction);
       if (character.equals("w") && direction != 's') {
@@ -55,7 +57,7 @@ class Main {
       } else if (character.equals("q")) {
         System.out.println("Game Over");
         System.exit(0);
-      }else if (character.equals("p")) {
+      } else if (character.equals("p")) {
         System.out.println("Game Paused");
         while (true) {
           character = input.next();
@@ -63,13 +65,13 @@ class Main {
             break;
           }
         }
-      } else{
+      } else {
         System.out.println("Invalid input");
-        triggered = false; 
+        triggered = false;
       }
 
-      System.out.print("\033[H\033[2J");  
-      System.out.flush(); 
+      System.out.print("\033[H\033[2J");
+      System.out.flush();
 
       if (triggered) {
         for (int i = 0; i < SIZE; i++) {
@@ -77,7 +79,7 @@ class Main {
             string[i][j] = BACKROUND;
           }
         }
-        
+
         ArrayList<Integer> coords = new ArrayList<Integer>();
         coords.add(y);
         coords.add(x);
@@ -90,7 +92,10 @@ class Main {
         blocks.add(coords);
 
         if (blocks.contains(newBlock)) {
-          newBlock = new ArrayList<Integer>(Arrays.asList(rand.nextInt(SIZE), rand.nextInt(SIZE)));
+          newBlock =
+            new ArrayList<Integer>(
+              Arrays.asList(rand.nextInt(SIZE), rand.nextInt(SIZE))
+            );
         } else {
           blocks.remove(0);
         }
@@ -98,16 +103,16 @@ class Main {
       triggered = true;
 
       for (int i = 0; i < blocks.size(); i++) {
-        string [blocks.get(i).get(0)][blocks.get(i).get(1)] = '*';
+        string[blocks.get(i).get(0)][blocks.get(i).get(1)] = '*';
       }
-      string [newBlock.get(0)][newBlock.get(1)] = '0';
-      
+      string[newBlock.get(0)][newBlock.get(1)] = '0';
+
       for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE * 2; j++) {
           System.out.print(string[i][j]);
         }
         System.out.println();
       }
-    }    
+    }
   }
 }
