@@ -3,11 +3,11 @@ import java.util.Scanner;
 public class jeopardy {
 
   //create 2d array
-  public static int[][] points = { // define question value matrix
-    { 100, 200, 300 },
-    { 100, 200, 300 },
-    { 100, 200, 300 },
-    { 100, 200, 300 },
+  public static String[][] points = { // define question value matrix
+    { "100", "200", "300" },
+    { "100", "200", "300" },
+    { "100", "200", "300" },
+    { "100", "200", "300" },
   };
 
   public static String[][] questions = { // define question value matrix
@@ -33,7 +33,7 @@ public class jeopardy {
 
   static Scanner key = new Scanner(System.in); //create new scanner
 
-  public static void printout(String[] args) {
+  public static void printout() {
     System.out.print("\033[H\033[2J"); //flush the screen
     System.out.flush();
     for (int w = 0; w < sections.length; w++) { //print out the sections
@@ -42,14 +42,14 @@ public class jeopardy {
     System.out.println();
     for (int i = 0; i < points[0].length; i++) { // print out the points array
       for (int j = 0; j < points.length; j++) {
-        System.out.print("   " + points[j][i] + "   |");
+        System.out.print("|    " + points[j][i] + "    ");
       }
-      System.out.println();
+      System.out.println("|");
     }
   }
 
-  public static void game(String[] args) throws InterruptedException {
-    final String CLEAR = "    ";
+  public static void game() throws InterruptedException {
+    final String CLEAR = "   ";
     boolean run = true;
     while (run) {
       while (run) {
@@ -65,7 +65,7 @@ public class jeopardy {
           }
         }
 
-        printout(args);
+        printout();
 
         System.out.println(
           "Pick a section number (1, 2, 3, or 4. Enter 0 to exit.):"
@@ -89,6 +89,7 @@ public class jeopardy {
         );
         System.out.println("Enter your answer:");
         questions[section][(question / 100) - 1] = CLEAR;
+        points[section][(question / 100) - 1] = CLEAR;
         boolean correct = false;
 
         for (int i = 1; i <= 3; i++) {
@@ -148,7 +149,7 @@ public class jeopardy {
 
       switch (selection) {
         case "1":
-          game(args); // if they entered 1, start the game
+          game(); // if they entered 1, start the game
           break;
         case "2":
           System.out.println("Goodbye!"); // if they entered 2, print goodbye, wait, and go back to main menu
