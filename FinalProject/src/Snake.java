@@ -95,7 +95,8 @@ class snake {
       } else {
         System.out.println("You don't have enough coins!");
       }
-      Thread.sleep(1000);
+      System.out.println("Press enter to continue...");
+      key.nextLine();
     }
   }
 
