@@ -9,7 +9,7 @@ class snake {
   // hashmap syntax from https://www.w3schools.com/java/java_hashmap.asp 
 
   //create  array for colors
-  static String[] colors = {color.RESET, color.BLACK, color.RED, color.GREEN};
+  static String[] colors = {color.RESET, color.RESET, color.RED, color.GREEN};
   // colors 0 represents menu color, 1 represents background color, 2 represents target color, 3 represents snake color
 
 
