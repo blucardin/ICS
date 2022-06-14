@@ -1,6 +1,8 @@
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class battleship {
 
@@ -23,26 +25,25 @@ public class battleship {
   };
 
   //new 3dimensional arraylist
-  static ArrayList<ArrayList<ArrayList<Integer>>> ships;
+  static ArrayList<ArrayList<ArrayList<Integer>>> ships = new ArrayList<ArrayList<ArrayList<Integer>>>();
 
-  public static void generateRandomShips(Integer length, String direction) {
+  public static void generateRandomShips(String direction, int length) {
     //generate random starting point for ship placement on board away from edges
     int x = rand.nextInt(SIZE - (2 * length)) + length;
     int y = rand.nextInt(SIZE - (2 * length)) + length;
 
     ships.add(new ArrayList<ArrayList<Integer>>());
     for (int i = 0; i <= length; i++) {
-      ships.get(ships.size() - 1).add(new ArrayList<Integer>());
       if (direction == "up") {
-        ships.get(ships.size() - 1).get(i).add(x);
-        ships.get(ships.size() - 1).get(i).add(y + i);
+        ships.get(ships.size() - 1).add(new ArrayList<Integer>(Arrays.asList(x, y + i)));
       } else {
-        ships.get(ships.size() - 1).get(i).add(x + i);
-        ships.get(ships.size() - 1).get(i).add(y);
+        ships.get(ships.size() - 1).add(new ArrayList<Integer>(Arrays.asList(x + i, y)));
       }
     }
+    for (int q = 0; q < ships.size(); q++) {
+      System.out.println(ships.get(q));
+    }
   }
-
   
 
   static char[][] answers = new char[SIZE][SIZE]; //create answer board
@@ -73,7 +74,7 @@ public class battleship {
     }
   }
 
-  public static void game(String[] args) throws InterruptedException {
+  public static void game() throws InterruptedException {
     for (int i = 0; i < SIZE; i++) { //fill board with dots
       for (int j = 0; j < SIZE; j++) {
         board[i][j] = BACKGROUND;
@@ -94,7 +95,7 @@ public class battleship {
       System.out.println("Enter a y-coordinate to fire at (1-20): ");
       input = key.next();
       int y = Integer.parseInt(input);
-      if (answers[y][x] == '~') {
+      if (answers[y][x] == BACKGROUND) {
         board[y][x] = 'X';
         msg = "You missed!";
       } else if (answers[y][x] == 'S') {
@@ -103,14 +104,16 @@ public class battleship {
       } else if (answers[y][x] == 'H') {
         msg = "You already fired at this location!";
       }
+      Thread.sleep(1000);
       System.out.print("\033[H\033[2J"); //flush screen
       System.out.flush();
       printout();
     }
   }
 
-  public static void menu(String[] args) throws InterruptedException {
+  public static void menu() throws InterruptedException {
     boolean run = true;
+    generateRandomShips("up", 5);
     while (run) {
       System.out.print("\033[H\033[2J"); //flush the screen
       System.out.flush();
@@ -127,7 +130,7 @@ public class battleship {
 
       switch (selection) {
         case "1":
-          game(args); // if they entered 1, start the game
+          game(); // if they entered 1, start the game
           break;
         case "2":
           System.out.println("Goodbye!"); // if they entered 2, print goodbye, wait, and go back to main menu

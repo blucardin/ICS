@@ -146,7 +146,7 @@ public class tictactoe {
     }
   }
 
-  public static void menu(String[] args) throws InterruptedException {
+  public static void menu() throws InterruptedException {
     boolean run = true;
     while (run) {
       System.out.print("\033[H\033[2J"); //flush the screen
