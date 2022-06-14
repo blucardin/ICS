@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class battleship {
 
@@ -9,11 +10,41 @@ public class battleship {
   static final int SIZE = 20; // Size of the board
   static char[][] board = new char[SIZE][SIZE]; //create game board
   static Random rand = new Random();
-  //create ship locations
-  static int[][][] ships = {
-    { { rand.nextInt(SIZE), rand.nextInt(SIZE) } },
-    { { rand.nextInt(SIZE), rand.nextInt(SIZE) } },
+
+  static String[] directions = {"up", "right"};
+
+  //generate a list of ships
+  static String[][] random = {
+    {"5", directions[rand.nextInt(2)], "Aircraft Carrier"},
+    {"4", directions[rand.nextInt(2)], "Battleship"},
+    {"3", directions[rand.nextInt(2)], "Submarine"},
+    {"3", directions[rand.nextInt(2)], "Patrol Boat"},
+    {"2", directions[rand.nextInt(2)], "Destroyer"}
   };
+
+  //new 3dimensional arraylist
+  static ArrayList<ArrayList<ArrayList<Integer>>> ships;
+
+  public static void generateRandomShips(Integer length, String direction) {
+    //generate random starting point for ship placement on board away from edges
+    int x = rand.nextInt(SIZE - (2 * length)) + length;
+    int y = rand.nextInt(SIZE - (2 * length)) + length;
+
+    ships.add(new ArrayList<ArrayList<Integer>>());
+    for (int i = 0; i <= length; i++) {
+      ships.get(ships.size() - 1).add(new ArrayList<Integer>());
+      if (direction == "up") {
+        ships.get(ships.size() - 1).get(i).add(x);
+        ships.get(ships.size() - 1).get(i).add(y + i);
+      } else {
+        ships.get(ships.size() - 1).get(i).add(x + i);
+        ships.get(ships.size() - 1).get(i).add(y);
+      }
+    }
+  }
+
+  
+
   static char[][] answers = new char[SIZE][SIZE]; //create answer board
   static String msg = ""; //create message
 
@@ -49,9 +80,9 @@ public class battleship {
         answers[i][j] = BACKGROUND;
       }
     }
-    for (int i = 0; i < ships.length; i++) {
-      for (int j = 0; j < ships[i].length; j++) {
-        answers[ships[i][j][0]][ships[i][j][1]] = 'S';
+    for (int i = 0; i < ships.size(); i++) {
+      for (int j = 0; j < ships.get(i).size(); j++) {
+        answers[ships.get(i).get(j).get(0)][ships.get(i).get(j).get(0)] = 'S';
       }
     }
     boolean run = true;
