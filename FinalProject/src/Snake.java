@@ -20,6 +20,7 @@ class snake {
 
       System.out.println(colors[0]);
       System.out.println("Welcome to the shop!");
+      System.out.println("You have " + app.coins + " coins.");
       System.out.println("What object would you like to buy a color for?");
       System.out.println("1. Menu");
       System.out.println("2. Background");
@@ -96,6 +97,7 @@ class snake {
         System.out.println("You don't have enough coins!");
       }
       System.out.println("Press enter to continue...");
+      key.nextLine();
       key.nextLine();
     }
   }
