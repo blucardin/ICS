@@ -27,7 +27,7 @@ public class battleship {
   //new 3dimensional arraylist
   static ArrayList<ArrayList<ArrayList<Integer>>> ships = new ArrayList<ArrayList<ArrayList<Integer>>>();
 
-  public static void generateRandomShips(String direction, int length) {
+  public static void generateRandomShips (String direction, int length) throws InterruptedException{
     //generate random starting point for ship placement on board away from edges
     int x = rand.nextInt(SIZE - (2 * length)) + length;
     int y = rand.nextInt(SIZE - (2 * length)) + length;
@@ -68,7 +68,31 @@ public class battleship {
       }
 
       for (int j = 0; j < board[i - 1].length; j++) {
-        System.out.print(board[i - 1][j] + " ");
+        if (board[i - 1][j] == BACKGROUND) {
+          System.out.print(board[i - 1][j] + " ");
+        }
+        else {
+          System.out.print(board[i - 1][j] + "  ");
+        }
+      }
+      System.out.println();
+    }
+    System.out.println(msg);
+
+    for (int i = 1; i <= answers.length; i++) {
+      if (i < 10) {
+        System.out.print(" " + i + " ");
+      } else {
+        System.out.print(i + " ");
+      }
+
+      for (int j = 0; j < answers[i - 1].length; j++) {
+        if (answers[i - 1][j] == BACKGROUND) {
+          System.out.print(answers[i - 1][j] + " ");
+        }
+        else {
+          System.out.print(answers[i - 1][j] + "  ");
+        }
       }
       System.out.println();
     }
@@ -83,28 +107,37 @@ public class battleship {
     }
     for (int i = 0; i < ships.size(); i++) {
       for (int j = 0; j < ships.get(i).size(); j++) {
-        answers[ships.get(i).get(j).get(0)][ships.get(i).get(j).get(0)] = 'S';
+        answers[ships.get(i).get(j).get(0)][ships.get(i).get(j).get(1)] = 'S';
       }
     }
     boolean run = true;
     printout();
     while (run) {
-      System.out.println("Enter an x-coordinate to fire at (1-20): ");
-      String input = key.next();
-      int x = Integer.parseInt(input);
-      System.out.println("Enter a y-coordinate to fire at (1-20): ");
-      input = key.next();
-      int y = Integer.parseInt(input);
-      if (answers[y][x] == BACKGROUND) {
-        board[y][x] = 'X';
-        msg = "You missed!";
-      } else if (answers[y][x] == 'S') {
-        answers[y][x] = 'H';
-        msg = "You hit a ship!";
-      } else if (answers[y][x] == 'H') {
-        msg = "You already fired at this location!";
+      while (true) {
+        System.out.println("Enter an x-coordinate to fire at (1-20): ");
+        int x = Integer.parseInt(key.next()) - 1;
+        System.out.println("Enter a y-coordinate to fire at (1-20): ");
+        int y = Integer.parseInt(key.next()) - 1;
+        msg = "";
+        if (x == -1 || y == -1) {
+          run = false; // if user enters 0, end game
+          break;
+        } else if (x > SIZE - 1 || y > SIZE - 1 || x < 0 || y < 0) {
+          msg = "Invalid coordinates";
+        } else if (answers[y][x] == BACKGROUND) {
+          board[y][x] = 'X';
+          msg = "You missed!";
+          break;
+        } else if (answers[y][x] == 'S') {
+          answers[y][x] = 'H';
+          board[y][x] = 'H';
+          msg = "You hit a ship!";
+          break;
+        } else if (answers[y][x] == 'H') {
+          msg = "You already fired at this location!";
+          break;
+        }
       }
-      Thread.sleep(1000);
       System.out.print("\033[H\033[2J"); //flush screen
       System.out.flush();
       printout();
