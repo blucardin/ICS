@@ -2,6 +2,100 @@ import java.util.Scanner;
 
 public class jeopardy {
 
+    //create  array for colors
+  static String[] colors = {color.RESET, color.RESET, color.RED, color.GREEN};
+  // colors 0 represents menu color, 1 represents background color, 2 represents question color, 3 represents answer color
+
+  public static void shop() throws InterruptedException{ //shop menu
+    while (true) {
+      System.out.print("\033[H\033[2J"); //clear screen
+      System.out.flush();
+
+      System.out.println(colors[0]);
+      System.out.println("Welcome to the shop!");
+      System.out.println("You have " + app.coins + " coins.");
+      System.out.println("What object would you like to buy a color for?");
+      System.out.println("1. Menu");
+      System.out.println("2. Background");
+      System.out.println("3. Questions");
+      System.out.println("4. Answers");
+      System.out.println("5. Exit back to main menu");
+      System.out.println("Enter your choice: ");
+      String choice = key.next(); //get user choice
+      if (choice.equals("5")){
+        break;
+      }
+
+      Thread.sleep(1000);
+      System.out.print("\033[H\033[2J"); //clear screen
+      System.out.flush();
+      
+      System.out.println(colors[0]);
+      System.out.println("What color would you like to buy?");
+      System.out.println("1. Green (10 coins)");
+      System.out.println("2. Red (20 coins)");
+      System.out.println("3. Blue (30 coins)");
+      System.out.println("4. Yellow (40 coins)");
+      System.out.println("5. Exit back to main menu");
+      System.out.println("Enter your choice: ");
+      String colorChoice = key.next();
+      if (colorChoice.equals("5")){
+        break;
+      }
+
+      Thread.sleep(1000);
+      System.out.print("\033[H\033[2J"); //clear screen
+      System.out.flush();
+
+      int object = Integer.parseInt(choice) - 1; //create selector for the object the user wants to change
+
+      boolean approved = false; //create boolean to check if the user has enough coins
+
+      switch(colorChoice) { //set color
+        case "1":
+          if (app.coins >= 10) {
+            app.coins -= 10; //subtract coins
+            colors[object] = color.GREEN;
+            approved = true;
+          }
+          break;
+        case "2":
+          if (app.coins >= 20) {
+            app.coins -= 20;
+            colors[object] = color.RED;
+            approved = true;
+          }
+          break;
+        case "3":
+          if (app.coins >= 30) {
+            app.coins -= 30;
+            colors[object] = color.BLUE;
+            approved = true;
+          }
+          break;
+        case "4":
+          if (app.coins >= 40) {
+            app.coins -= 40;
+            colors[object] = color.YELLOW;
+            approved = true;
+          }
+        default:
+          System.out.println("Invalid choice!");
+          approved = true;
+          break;
+      }
+      if (approved == true) {
+        System.out.println("Your purchase was approved! Your color is now equipped!");
+        System.out.println("You have " + app.coins + " coins.");
+      } else {
+        System.out.println("You don't have enough coins!");
+      }
+      System.out.println("Press enter to continue...");
+      key.nextLine();
+      key.nextLine();
+    }
+  }
+
   //create 2d array
   public static String[][] points = { // define question value matrix
     { "100", "200", "300" },
@@ -37,18 +131,19 @@ public class jeopardy {
     System.out.print("\033[H\033[2J"); //flush the screen
     System.out.flush();
     for (int w = 0; w < sections.length; w++) { //print out the sections
-      System.out.print((w + 1) + "." + sections[w] + " | ");
+      System.out.print(colors[1] + (w + 1) + "." + sections[w] + " | ");
     }
     System.out.println();
     for (int i = 0; i < points[0].length; i++) { // print out the points array
       for (int j = 0; j < points.length; j++) {
-        System.out.print("|    " + points[j][i] + "    ");
+        System.out.print(colors[1] + "|    " + colors[2] + points[j][i] + colors[1] + "    ");
       }
       System.out.println("|");
     }
   }
 
   public static void game() throws InterruptedException {
+    System.out.println(colors[0]);
     final String CLEAR = "   ";
     boolean run = true;
     while (run) {
@@ -66,25 +161,39 @@ public class jeopardy {
         }
 
         printout();
-
+        System.out.println(colors[0]);
+        
         System.out.println(
           "Pick a section number (1, 2, 3, or 4. Enter 0 to exit.):"
         );
         int section = key.nextInt() - 1;
-        if (section == -1) {
+        if (section <= -1) {
           run = false;
           break;
         }
-        System.out.println("Pick a question number (100, 200, or 300):");
-        int question = key.nextInt();
-        Thread.sleep(1000);
+        int question = 0;
+        while (true) {
+          System.out.println("Pick a question number (100, 200, or 300):");
+          question = key.nextInt();
+          Thread.sleep(1000);
+          if (question < 100 || question > 300){
+            System.out.println("Invalid input, try again\n");
+          }
+          else if (points[section][(question / 100) - 1].equals(CLEAR)){
+            System.out.println("Question already used, try again\n");
+          }
+          else{
+            break; 
+          }
+          
+        }
 
         System.out.println(
-          "You chose " + sections[section] + " for " + question
+          "\n You chose " + sections[section] + " for " + question
         );
         Thread.sleep(1000);
 
-        System.out.println(
+        System.out.println( colors[2] + 
           "Your question is" + questions[section][(question / 100) - 1]
         );
         System.out.println("Enter your answer:");
@@ -97,6 +206,7 @@ public class jeopardy {
           if (answer.equals(answers[section][(question / 100) - 1])) {
             System.out.print("\033[H\033[2J"); //flush the screen
             System.out.flush();
+            System.out.print(colors[3]);
             System.out.println("You are correct!");
             int coinIncrease = question - (i * 50);
             System.out.println("You earned " + coinIncrease + " coins.");
@@ -107,15 +217,20 @@ public class jeopardy {
             correct = true;
             break;
           } else {
+            System.out.print(colors[3]);
             System.out.println("Wrong!");
             System.out.println(
               "Try again, you have " + (3 - i) + " more chances"
             );
+            System.out.print(colors[2]);
           }
         }
 
+        System.out.print(colors[0]);
+
         if (correct == false) {
-          System.out.println("You are out of chances, try another question.");
+          System.out.println("You are out of chances, the answer was "+ colors[3] + answers[section][(question / 100) - 1] + colors[0]);
+          System.out.println("try another question"); 
           System.out.println("Enter any key to continue.");
           key.next();
         }
@@ -136,6 +251,7 @@ public class jeopardy {
     while (run) {
       System.out.print("\033[H\033[2J"); //flush the screen
       System.out.flush();
+      System.out.println(colors[0]);
       System.out.println("Welcome to Jeopardy!"); //print welcome message
 
       Thread.sleep(1000); //wait to build suspense
@@ -160,14 +276,16 @@ public class jeopardy {
           System.out.print("\033[H\033[2J"); //flush the screen
           System.out.flush();
           System.out.println("How to play: ");
-          System.out.println("Use w, a, s, and d keys to move the snake.");
-          System.out.println("Eat the 0 to grow.");
-          System.out.println("Avoid the walls and yourself.");
-          System.out.println("Press 'p' to pause the game.");
-          System.out.println("Press 'q' to quit the game.");
+          System.out.println("Select a section and a question.");
+          System.out.println("Answer the question correctly to gain points.");
+          System.out.println("Answer the question incorrectly and you will be given 3 more changes.");
+          System.out.println("Enter section '0' to quit the game.");
           Thread.sleep(1000);
           System.out.println("Enter any key to return back to the menu:");
           key.next();
+          break;
+        case "4":
+          shop();
           break;
         default:
           System.out.print("\033[H\033[2J"); //flush the screen
