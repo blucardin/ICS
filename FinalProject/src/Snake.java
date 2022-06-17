@@ -262,7 +262,7 @@ class snake {
     }
   }
 
-  public static void menu(String[] args) throws InterruptedException {
+  public static void menu() throws InterruptedException {
     boolean menu = true;
     while (menu) {
       //loop over array

@@ -3,10 +3,36 @@ import java.util.Scanner;
 public class app {
 
   public static int coins = 0;
+  public static boolean devMode = true;
+  static Scanner key = new Scanner(System.in);
+
+  public static void picker(String pick) throws InterruptedException{
+    switch (pick) {
+          case "1":
+            snake.menu();
+            break;
+          case "2":
+            jeopardy.menu();
+            break;
+          case "3":
+            battleship.menu();
+            break;
+          case "4":
+            tictactoe.menu();
+            break;
+          case "5":
+            System.out.println("Goodbye!");
+            System.exit(0);
+            key.close();
+            break;
+          default:
+            System.out.println("Invalid input. Please try again.");
+            break;
+        }
+  }
 
   //throws Exception
   public static void main(String[] args) throws InterruptedException {
-    Scanner key = new Scanner(System.in);
     while (true) {
       System.out.print("\033[H\033[2J");
       System.out.flush();
@@ -38,38 +64,21 @@ public class app {
 
       String selection = key.next();
 
-      try {
-        switch (selection) {
-          case "1":
-            snake.menu(args);
-            break;
-          case "2":
-            jeopardy.menu(args);
-            break;
-          case "3":
-            battleship.menu(args);
-            break;
-          case "4":
-            tictactoe.menu(args);
-            break;
-          case "5":
-            System.out.println("Goodbye!");
-            System.exit(0);
-            key.close();
-            break;
-          default:
-            System.out.println("Invalid input. Please try again.");
-            break;
+      if (devMode == true){
+        picker(selection);
+      } 
+      else if (devMode == false){
+        try {
+          picker(selection);
+        } catch (Exception e) {
+          System.out.println(
+            "It appears there was an error. Usually this is caused by an invalid input. Please try again.");
+          System.out.println("The error was: ");
+          System.out.println(e);
+          Thread.sleep(1000);
+          System.out.println("Enter any key to return back to the menu:");
+          key.next();
         }
-      } catch (Exception e) {
-        System.out.println(
-          "It appears there was an error. Usually this is caused by an invalid input. Please try again."
-        );
-        System.out.println("The error was: ");
-        System.out.println(e);
-        Thread.sleep(1000);
-        System.out.println("Enter any key to return back to the menu:");
-        key.next();
       }
     }
   }
