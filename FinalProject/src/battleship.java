@@ -146,7 +146,9 @@ public class battleship {
 
   public static void menu() throws InterruptedException {
     boolean run = true;
-    generateRandomShips("up", 5);
+    for (int r = 0; r < random.length; r++) {
+     generateRandomShips(random[r][1], Integer.parseInt(random[r][0])); 
+    }
     while (run) {
       System.out.print("\033[H\033[2J"); //flush the screen
       System.out.flush();
