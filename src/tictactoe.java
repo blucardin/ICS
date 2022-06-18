@@ -1,3 +1,8 @@
+/* This is the file that runs the tic tac toe game.
+ * It displays a menu, and gets user input. 
+ * Based on what the user wants to do, it will either start the tic tac toe game, go to the shop, print the rules, or go back the main menu. 
+ */
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -44,7 +49,7 @@ public class tictactoe {
       if (colorChoice.equals("5")){  //if user chooses 5, return to menu
         break;
       }
-      
+
       Thread.sleep(1000);
       System.out.print("\033[H\033[2J"); //clear screen
       System.out.flush();
@@ -114,17 +119,17 @@ public class tictactoe {
     for (int i = 0; i < board.length; i++) {
       System.out.println("-------------"); // print the horizontal lines
       System.out.print("| "); // print the first vertical line of each row
-      for (int j = 0; j < board[i].length; j++) {
+      for (int j = 0; j < board[i].length; j++) { // loop over each row
         if (board[i][j] == X) {
-          System.out.print(colors[2] + board[i][j] + colors[1] + " | "); //print the board row by row
+          System.out.print(colors[2] + board[i][j] + colors[1] + " | "); // if the character is X, print X in X's color
         } 
         else if (board[i][j] == O) {
-          System.out.print(colors[3] + board[i][j] + colors[1] + " | ");
+          System.out.print(colors[3] + board[i][j] + colors[1] + " | "); // if the character is O, print O in O's color
         } else {
-          System.out.print("  | ");
+          System.out.print("  | "); // if the character is BACKGROUND, print a space
         }
       }
-      System.out.println();
+      System.out.println(); 
     }
     System.out.println("-------------"); // print the last horizontal line
   }
@@ -145,8 +150,7 @@ public class tictactoe {
     if (board[0][0] == test && board[1][1] == test && board[2][2] == test) { //check 1st diagonal
       return true;
     } else if (
-      board[0][2] == test && board[1][1] == test && board[2][0] == test
-    ) { //check 2nd diagonal
+      board[0][2] == test && board[1][1] == test && board[2][0] == test) { //check 2nd diagonal
       return true;
     }
     return false;
@@ -157,7 +161,7 @@ public class tictactoe {
     while (run) { //if the user wants to play again the game will continue
       for (int i = 0; i < SIZE; i++) { //fill board with dots
         for (int j = 0; j < SIZE; j++) {
-          board[i][j] = BACKGROUND;
+          board[i][j] = BACKGROUND; 
         }
       }
 
@@ -304,7 +308,7 @@ public class tictactoe {
           System.out.println("Press any key to return back to the menu:");
           key.next();
           break;
-        case "4":
+        case "4": // if they entered 4, run the shop
           shop();
           break;
         default:

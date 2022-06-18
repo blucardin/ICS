@@ -1,3 +1,8 @@
+/* This is the file that runs the jeopardy game.
+ * It displays a menu, and gets user input. 
+ * Based on what the user wants to do, it will either start the jeopardy game, go to the shop, print the rules, or go back the main menu. 
+ */
+
 import java.util.Scanner;
 
 public class jeopardy {
@@ -98,7 +103,7 @@ public class jeopardy {
   }
 
   //create 2d array
-  public static String[][] points = { // define question value matrix
+  public static String[][] points = { // define point value matrix
     { "100", "200", "300" },
     { "100", "200", "300" },
     { "100", "200", "300" },
@@ -147,64 +152,56 @@ public class jeopardy {
     System.out.println(colors[0]);
     final String CLEAR = "   ";
     boolean run = true;
-    while (run) {
-      while (run) {
-        //loop over questions
-        for (int y = 0; y < questions.length; y++) {
-          for (int x = 0; x < questions[y].length; x++) {
-            if (questions[y][x].equals(CLEAR)) {
-              System.out.println(
-                "You have answered all the questions! Thank you for playing!"
-              );
+    while (run) { //if the user wants to play again, this loop will run the game again
+
+      while (run) { 
+        for (int y = 0; y < questions.length; y++) {  // check if the user ansered all the questions
+          for (int x = 0; x < questions[y].length; x++) {  //loop over questions
+            if (questions[y][x].equals(CLEAR)) { 
+              System.out.println("You have answered all the questions! Thank you for playing! Enter 0 to exit.");
               break;
             }
           }
         }
 
-        printout();
-        System.out.println(colors[0]);
+        printout(); //print out the points array
+        System.out.println(colors[0]); 
         
-        System.out.println(
-          "Pick a section number (1, 2, 3, or 4. Enter 0 to exit.):"
-        );
-        int section = key.nextInt() - 1;
-        if (section <= -1) {
+        System.out.println("Pick a section number (1, 2, 3, or 4. Enter 0 to exit.):"); //prompt user to pick a section
+        int section = key.nextInt() - 1; //get user input for section
+        if (section <= -1) { //if user enters 0, exit the game
           run = false;
           break;
         }
-        int question = 0;
+        int question = 0;   //create question variable
         while (true) {
-          System.out.println("Pick a question number (100, 200, or 300):");
-          question = key.nextInt();
+          System.out.println("Pick a question number (100, 200, or 300):"); //prompt user to pick a question number
+          question = key.nextInt(); //get user input for question number
           Thread.sleep(1000);
-          if (question < 100 || question > 300){
+          if (question < 100 || question > 300){  //if user enters an invalid question number, print error message
             System.out.println("Invalid input, try again\n");
           }
-          else if (points[section][(question / 100) - 1].equals(CLEAR)){
+          else if (points[section][(question / 100) - 1].equals(CLEAR)){ //if user enters a question that has already been answered, print error message
             System.out.println("Question already used, try again\n");
           }
           else{
-            break; 
+            break;  //if user enters a valid question number, break the loop
           }
           
         }
 
-        System.out.println(
-          "\n You chose " + sections[section] + " for " + question
-        );
+        System.out.println("\n You chose " + sections[section] + " for " + question); //print out the section and question number
         Thread.sleep(1000);
 
-        System.out.println( colors[2] + 
-          "Your question is" + questions[section][(question / 100) - 1]
-        );
+        System.out.println( colors[2] + "Your question is" + questions[section][(question / 100) - 1] ); //print out the question
         System.out.println("Enter your answer:");
-        questions[section][(question / 100) - 1] = CLEAR;
-        points[section][(question / 100) - 1] = CLEAR;
-        boolean correct = false;
+        questions[section][(question / 100) - 1] = CLEAR;  //set the question to CLEAR
+        points[section][(question / 100) - 1] = CLEAR;  //set the points display for that question to CLEAR
+        boolean correct = false; //create boolean variable for if the user is correct
 
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= 3; i++) { //loop over the answers
           String answer = key.next();
-          if (answer.equals(answers[section][(question / 100) - 1])) {
+          if (answer.equals(answers[section][(question / 100) - 1])) { 
             System.out.print("\033[H\033[2J"); //flush the screen
             System.out.flush();
             System.out.print(colors[3]);
@@ -285,7 +282,7 @@ public class jeopardy {
           System.out.println("Enter any key to return back to the menu:");
           key.next();
           break;
-        case "4":
+        case "4": // if they entered 4, run the shop
           shop();
           break;
         default:

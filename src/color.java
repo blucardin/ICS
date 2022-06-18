@@ -1,8 +1,9 @@
-public class color {
-    /* Creates a color class so I don't have to state the specific color codes in all of my files.
-       Code is taken from: https://www.w3schools.blog/ansi-colors-java
-     */
+/*
+Creates a color class so I don't have to state the specific color codes in all of my files.
+Code is taken from: https://www.w3schools.blog/ansi-colors-java
+ */ 
 
+public class color {
     // Reset
     public static final String RESET = "\033[0m";  // Text Reset
  

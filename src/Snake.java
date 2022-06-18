@@ -109,7 +109,7 @@ class snake {
 
   public static void game() throws InterruptedException {
     boolean run = true;
-    while (run) {
+    while (run) { //if the user wants to play again, this loop runs the game again
       final char BACKGROUND = '.'; //set background character
       final int SIZE = 20; // Size of the board
       final int[] STARTING_POS = { SIZE / 2, SIZE / 2 }; //Starting position for the snake
@@ -330,7 +330,7 @@ class snake {
           System.out.println("Press 'p' to pause the game.");
           System.out.println("Press 'q' to quit the game.");
           Thread.sleep(1000);
-          System.out.println("Press, any key to go back to the menu.");
+          System.out.println("Enter any key to go back to the menu.");
           key.next();
           System.out.print("\033[H\033[2J");
           System.out.flush();
