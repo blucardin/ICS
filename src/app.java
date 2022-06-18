@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class app {
 
   public static int coins = 0; // create public variable for coins
-  public static boolean devMode = true; // create public variable for devMode, this disabled the auto-error catching
+  public static boolean devMode = false; // create public variable for devMode, this disabled the auto-error catching
   static Scanner key = new Scanner(System.in); // create a scanner for the keyboard
 
   public static void picker(String pick) throws InterruptedException { // create a method called picker, this method will be used to pick a game when the user enters a number
