@@ -5,9 +5,7 @@ Play the game at the link below:
 https://replit.com/@NoahVirjee/ICS-1
 
 # Final Report
-## How did you approach this project for each stage of the Software Development
-Cycle. Provide a rationale if needed (ie. Why did you choose to do something this
-way instead of that way?)
+## How did you approach this project for each stage of the Software Development Cycle. Provide a rationale if needed (ie. Why did you choose to do something this way instead of that way?)
 
 
 I approached this project in the way that I felt would be most efficient. 
