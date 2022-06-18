@@ -4,7 +4,7 @@ My cluminating assesment for for my introduction to computer science course. The
 Play the game at the link below: 
 https://replit.com/@NoahVirjee/ICS-1
 
-#Final Report
+# Final Report
 How did you approach this project for each stage of the Software Development Cycle? Provide a rationale if needed (ie. Why did you choose to do something this way instead of that way?)
 What steps were taken to make this project better?
 What you would improve on if you could do the project again?
@@ -20,7 +20,7 @@ Third, I started coding the menus and setting up the file structure. Every game 
 
 Next, I programmed each game one by one. I started with the base logic needed to make the game work, then I added extra elements. The menus and shops were repeated almost identically for each game as they did not need to be re-written.
 
-#Final Thoughts
-I will be honest, I could have put mroe work into this projects. I have done hackathons before where I have created some really cool things with a fraction of the time. I spent time working on other culminating assiments and I feel that this is satisfacotry for this course. 
+## Final Thoughts
+I will be honest, I could have put mroe work into this projects. I have done hackathons before where I have created some really cool things with a fraction of the time. I was buys working on other culminating assesment and I feel that this is satisfacotry for this course. 
 
 
