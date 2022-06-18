@@ -119,7 +119,7 @@ class snake {
       blocks.add(
         new ArrayList<Integer>(
           Arrays.asList(STARTING_POS[0], STARTING_POS[1] - 1) // Add the head to the snake at the starting position
-        ) 
+        )
       ); //create starting snake
       blocks.add(
         new ArrayList<Integer>(Arrays.asList(STARTING_POS[0], STARTING_POS[1])) // Add the body to the snake at the starting position

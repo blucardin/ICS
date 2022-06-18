@@ -8,11 +8,11 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-public class battleship { 
+public class battleship {
 
   static String[] colors = { color.BLUE, color.RESET, color.RED, color.GREEN };
-  // colors 0 represents menu color, 1 represents background color, 2 represents miss color, 3 represents hit color
 
+  // colors 0 represents menu color, 1 represents background color, 2 represents miss color, 3 represents hit color
 
   public static void shop() throws InterruptedException { //shop menu
     while (true) {
@@ -118,8 +118,8 @@ public class battleship {
   static String[] directions = { "up", "right" }; //create array of directions
 
   //generate a list of ships
-  static String[][] random = { 
-    { "5", directions[rand.nextInt(2)], "Aircraft Carrier" },  //create array of ships
+  static String[][] random = {
+    { "5", directions[rand.nextInt(2)], "Aircraft Carrier" }, //create array of ships
     { "4", directions[rand.nextInt(2)], "Battleship" },
     { "3", directions[rand.nextInt(2)], "Submarine" },
     { "3", directions[rand.nextInt(2)], "Patrol Boat" },
@@ -130,8 +130,8 @@ public class battleship {
   static ArrayList<ArrayList<ArrayList<Integer>>> CPUships = new ArrayList<ArrayList<ArrayList<Integer>>>(); //create an ArrayLists for the CPU's ships
   static ArrayList<ArrayList<ArrayList<Integer>>> PlayerShips = new ArrayList<ArrayList<ArrayList<Integer>>>(); //create an ArrayLists for the player's ships
 
-  public static void generateRandomShips(String direction, int length) throws InterruptedException { //generate random ships
-    
+  public static void generateRandomShips(String direction, int length)
+    throws InterruptedException { //generate random ships
     int x1 = rand.nextInt(SIZE - (2 * length)) + length; //generate random starting point for ship placement on board away from edges
     int y1 = rand.nextInt(SIZE - (2 * length)) + length;
 
@@ -165,7 +165,7 @@ public class battleship {
   static char[][] PlayerAnswers = new char[SIZE][SIZE]; //create answer board
 
   public static void printout(char[][] array) { //print out the board
-    System.out.print("  " +  colors[1]);
+    System.out.print("  " + colors[1]);
 
     for (int j = 1; j <= array[0].length; j++) { //print out the column numbers
       if (j < 10) {
@@ -187,7 +187,7 @@ public class battleship {
           System.out.print(colors[1] + array[i - 1][j] + " "); // if the character is a background character, print it with the background color
         } else if (array[i - 1][j] == 'X') {
           System.out.print(colors[2] + array[i - 1][j] + "  "); // if the character is an X, print it with the miss color
-        } else if (array[i - 1][j] == 'H' || array[i - 1][j] == 'S') { 
+        } else if (array[i - 1][j] == 'H' || array[i - 1][j] == 'S') {
           System.out.print(colors[3] + array[i - 1][j] + "  "); // if the character is a H or a S, print it with the hit color
         }
       }
@@ -212,20 +212,30 @@ public class battleship {
         PlayerAnswers[i][j] = BACKGROUND;
       }
     }
-    
+
     for (int i = 0; i < PlayerShips.size(); i++) {
       for (int j = 0; j < PlayerShips.get(i).size(); j++) {
-        PlayerAnswers[PlayerShips.get(i).get(j).get(0)][PlayerShips.get(i).get(j).get(1)] = 'S'; // fill in the answer board with PlayerShips
+        PlayerAnswers[PlayerShips.get(i).get(j).get(0)][PlayerShips
+            .get(i)
+            .get(j)
+            .get(1)] =
+          'S'; // fill in the answer board with PlayerShips
       }
     }
 
     for (int i = 0; i < CPUships.size(); i++) {
       for (int j = 0; j < CPUships.get(i).size(); j++) {
-        CPUanswers[CPUships.get(i).get(j).get(0)][CPUships.get(i).get(j).get(1)] = 'S'; // fill in the answer board with CPUships
+        CPUanswers[CPUships.get(i).get(j).get(0)][CPUships
+            .get(i)
+            .get(j)
+            .get(1)] =
+          'S'; // fill in the answer board with CPUships
       }
     }
 
-    System.out.println("Your ships have been randomly placed on the board in the following layout: \n"); 
+    System.out.println(
+      "Your ships have been randomly placed on the board in the following layout: \n"
+    );
     printout(PlayerAnswers); //print out the PlayerAnswer board
     System.out.println("Get ready for war! Enter any key to continue.");
     key.next();
@@ -233,7 +243,7 @@ public class battleship {
     String msg = "";
 
     char turn = 'P'; //create a variable representing whose turn it is
-    boolean run = true; 
+    boolean run = true;
     while (run) {
       if (turn == 'P') { //if it is the player's turn
         while (true) {
@@ -241,17 +251,21 @@ public class battleship {
           System.out.flush();
           System.out.println("Players's turn");
 
-          printout(CPUboard);  //print out the CPU board
+          printout(CPUboard); //print out the CPU board
 
-          System.out.println("Enter an x-coordinate to fire at (1-20) (enter 0 to end game): ");
+          System.out.println(
+            "Enter an x-coordinate to fire at (1-20) (enter 0 to end game): "
+          );
           int x = Integer.parseInt(key.next()) - 1; //get the x-coordinate
-          System.out.println("Enter a y-coordinate to fire at (1-20) (enter 0 to end game): ");
+          System.out.println(
+            "Enter a y-coordinate to fire at (1-20) (enter 0 to end game): "
+          );
           int y = Integer.parseInt(key.next()) - 1; //get the y-coordinate
           if (x == -1 || y == -1) { //if the user enters 0, end the game
             run = false; // if user enters 0, end game
             break;
           } else if (x > SIZE - 1 || y > SIZE - 1 || x < 0 || y < 0) { //if the user enters a coordinate outside of the board, print an error message
-            System.out.println( "Invalid coordinates");
+            System.out.println("Invalid coordinates");
           } else if (CPUanswers[y][x] == BACKGROUND) { //if the user enters a coordinate that is a miss, tell them and update the board
             CPUboard[y][x] = 'X';
             CPUanswers[y][x] = 'X';
@@ -263,8 +277,8 @@ public class battleship {
             msg = "You hit a ship!";
             break;
           } else if (CPUanswers[y][x] == 'H' || CPUanswers[y][x] == 'X') { //if the user enters a coordinate that is already a hit or a miss, print an error message
-            System.out.println( "You already fired at this location!");
-            System.out.println( "Enter any key to continue.");
+            System.out.println("You already fired at this location!");
+            System.out.println("Enter any key to continue.");
             key.next();
           }
         }
@@ -273,12 +287,12 @@ public class battleship {
         System.out.println("Players's turn");
         printout(CPUboard); //print out the updated CPU board
         System.out.println(msg); //print out the message
-        System.out.println( "Enter any key to continue.");
+        System.out.println("Enter any key to continue.");
         key.next();
 
         boolean allSunk = true; //check if all boats were sunk
         for (int i = 0; i < CPUanswers.length; i++) {
-          for (int j = 0; j < CPUanswers[i].length; j++) { 
+          for (int j = 0; j < CPUanswers[i].length; j++) {
             if (CPUanswers[i][j] == 'S') { //if any of the CPU's ships are not sunk, set allSunk to false
               allSunk = false;
             }
@@ -290,7 +304,6 @@ public class battleship {
           break;
         }
         turn = 'C'; //change the turn to CPU
-        
       } else if (turn == 'C') {
         System.out.print("\033[H\033[2J"); //clear screen
         System.out.flush();
@@ -300,9 +313,9 @@ public class battleship {
         System.out.println("The CPU is gussing...");
         Thread.sleep(1000);
 
-        while (true) {  //while the CPU is gussing, keep looping
-          int x = (int) (Math.random() * SIZE);  //randomly generate an x and y coordinate to fire at
-          int y = (int) (Math.random() * SIZE); 
+        while (true) { //while the CPU is gussing, keep looping
+          int x = (int) (Math.random() * SIZE); //randomly generate an x and y coordinate to fire at
+          int y = (int) (Math.random() * SIZE);
           if (PlayerAnswers[y][x] == BACKGROUND) { //if the CPU fires and misses, update the board
             Playerboard[y][x] = 'X'; //update the display board
             msg = "The CPU Missed!";
@@ -312,7 +325,7 @@ public class battleship {
             Playerboard[y][x] = 'H'; //update the display board
             msg = "The CPU Hit!"; //print out the message
             break;
-          } 
+          }
         }
         System.out.print("\033[H\033[2J"); //clear screen
         System.out.flush();
@@ -322,7 +335,7 @@ public class battleship {
 
         boolean allSunk = true; //check if all boats were sunk
         for (int i = 0; i < PlayerAnswers.length; i++) {
-          for (int j = 0; j < PlayerAnswers[i].length; j++) {  
+          for (int j = 0; j < PlayerAnswers[i].length; j++) {
             if (PlayerAnswers[i][j] == 'S') { //if any of the Player's ships are not sunk, set allSunk to false
               allSunk = false;
             }
@@ -333,16 +346,15 @@ public class battleship {
           run = false;
           break;
         }
-        System.out.println( "Enter any key to continue."); //print out the message
+        System.out.println("Enter any key to continue."); //print out the message
         key.next();
         turn = 'P';
-        
       }
     }
-   
+
     int hits = 0;
     for (int i = 0; i < CPUanswers.length; i++) {
-      for (int j = 0; j < CPUanswers[i].length; j++) {  // determine the amount of hits
+      for (int j = 0; j < CPUanswers[i].length; j++) { // determine the amount of hits
         if (CPUanswers[i][j] == 'H') {
           hits++;
         }
@@ -361,7 +373,6 @@ public class battleship {
     if (answer.equals("y")) {
       game();
     }
-
   }
 
   public static void menu() throws InterruptedException {

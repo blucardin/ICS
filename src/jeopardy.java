@@ -114,10 +114,26 @@ public class jeopardy {
   };
 
   public static String[][] questions = { // define question value matrix
-    { "What is a baby cow called?", "What do you call a cow with no legs?", "How long did the longest chicken live? (in years)" },
-    { "How many elements are in the periodic table?", "How many dots are on a pair of dice?", "What was the lastname of the first black president of America?" },
-    { "Is an apple food?", "I have a pen, I have an apple, UH ________", "Do you put the milk or the cereal first?" },
-    { "How many continents are there?", "What is the biggest country?", "What is the best country?" },
+    {
+      "What is a baby cow called?",
+      "What do you call a cow with no legs?",
+      "How long did the longest chicken live? (in years)",
+    },
+    {
+      "How many elements are in the periodic table?",
+      "How many dots are on a pair of dice?",
+      "What was the lastname of the first black president of America?",
+    },
+    {
+      "Is an apple food?",
+      "I have a pen, I have an apple, UH ________",
+      "Do you put the milk or the cereal first?",
+    },
+    {
+      "How many continents are there?",
+      "What is the biggest country?",
+      "What is the best country?",
+    },
   };
 
   public static String[][] answers = { // define answer value matrix
@@ -239,13 +255,13 @@ public class jeopardy {
 
         if (correct == false) { //if the user is wrong more than 3 times, give them the answer
           System.out.println(
-            "You are out of chances, the answer was " + 
+            "You are out of chances, the answer was " +
             colors[3] +
             answers[section][(question / 100) - 1] +
             colors[0]
           );
           System.out.println("try another question");
-          System.out.println("Enter any key to continue.");   //prompt user to continue
+          System.out.println("Enter any key to continue."); //prompt user to continue
           key.next();
         }
       }
