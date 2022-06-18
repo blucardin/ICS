@@ -114,24 +114,24 @@ public class jeopardy {
   };
 
   public static String[][] questions = { // define question value matrix
-    { "Question1,1", "Question1,2", "Question1,3" },
-    { "Question2,1", "Question2,2", "Question2,3" },
-    { "Question3,1", "Question3,2", "Question3,3" },
-    { "Question4,1", "Question4,2", "Question4,3" },
+    { "What is a baby cow called?", "What do you call a cow with no legs?", "How long did the longest chicken live? (in years)" },
+    { "How many elements are in the periodic table?", "How many dots are on a pair of dice?", "What was the lastname of the first black president of America?" },
+    { "Is an apple food?", "I have a pen, I have an apple, UH ________", "Do you put the milk or the cereal first?" },
+    { "How many continents are there?", "What is the biggest country?", "What is the best country?" },
   };
 
   public static String[][] answers = { // define answer value matrix
-    { "answer1,1", "answer1,2", "answer1,3" },
-    { "answer2,1", "answer2,2", "answer2,3" },
-    { "answer3,1", "answer3,2", "answer3,3" },
-    { "answer4,1", "answer4,2", "answer4,3" },
+    { "calf", "ground beef", "16" },
+    { "118", "42", "obama" },
+    { "yes", "applepen", "Trick Question: You put the bowl first" },
+    { "7", "russia", "canada" },
   };
 
   public static String[] sections = { // define section matrix
-    "Section1",
-    "Section2",
-    "Section3",
-    "Section4",
+    "Animals",
+    "Misc.",
+    "Food",
+    "World",
   };
 
   static Scanner key = new Scanner(System.in); //create new scanner
@@ -139,9 +139,8 @@ public class jeopardy {
   public static void printout() {
     System.out.print("\033[H\033[2J"); //flush the screen
     System.out.flush();
-    for (int w = 0; w < sections.length; w++) { //print out the sections
-      System.out.print(colors[1] + (w + 1) + "." + sections[w] + " | ");
-    }
+    System.out.print("| 1.animals |  2.Misc.  |   3.Food  |  4.World  |"); //print out the sections
+
     System.out.println();
     for (int i = 0; i < points[0].length; i++) { // print out the points array
       for (int j = 0; j < points.length; j++) {
@@ -159,7 +158,7 @@ public class jeopardy {
     boolean run = true;
     while (run) { //if the user wants to play again, this loop will run the game again
       while (run) {
-        for (int y = 0; y < questions.length; y++) { // check if the user ansered all the questions
+        for (int y = 0; y < questions.length; y++) { // check if the user answered all the questions
           for (int x = 0; x < questions[y].length; x++) { //loop over questions
             if (questions[y][x].equals(CLEAR)) {
               System.out.println(
@@ -202,7 +201,7 @@ public class jeopardy {
 
         System.out.println(
           colors[2] +
-          "Your question is" +
+          "Your question is : \n" +
           questions[section][(question / 100) - 1]
         ); //print out the question
         System.out.println("Enter your answer:");
@@ -211,15 +210,16 @@ public class jeopardy {
         boolean correct = false; //create boolean variable for if the user is correct
 
         for (int i = 1; i <= 3; i++) { //loop over the answers
-          String answer = key.next();
-          if (answer.equals(answers[section][(question / 100) - 1])) {
+          key.nextLine();
+          String answer = key.nextLine();
+          if (answer.equalsIgnoreCase(answers[section][(question / 100) - 1])) { //if the user enters the correct answer, print success message
             System.out.print("\033[H\033[2J"); //flush the screen
             System.out.flush();
             System.out.print(colors[3]);
             System.out.println("You are correct!");
-            int coinIncrease = question - (i * 50);
-            System.out.println("You earned " + coinIncrease + " coins.");
-            System.out.println("Enter any key to continue.");
+            int coinIncrease = question - (i * 50); //calculate the amount of coins the user will get
+            System.out.println("You earned " + coinIncrease + " coins."); //print out the amount of coins the user will get
+            System.out.println("Enter any key to continue."); //prompt user to continue
             key.next();
             app.coins += coinIncrease;
 
@@ -227,9 +227,9 @@ public class jeopardy {
             break;
           } else {
             System.out.print(colors[3]);
-            System.out.println("Wrong!");
+            System.out.println("Wrong!"); //if the user enters the wrong answer, print error message
             System.out.println(
-              "Try again, you have " + (3 - i) + " more chances"
+              "Try again, you have " + (3 - i) + " more chances" //print out the amount of chances the user has
             );
             System.out.print(colors[2]);
           }
@@ -237,21 +237,21 @@ public class jeopardy {
 
         System.out.print(colors[0]);
 
-        if (correct == false) {
+        if (correct == false) { //if the user is wrong more than 3 times, give them the answer
           System.out.println(
-            "You are out of chances, the answer was " +
+            "You are out of chances, the answer was " + 
             colors[3] +
             answers[section][(question / 100) - 1] +
             colors[0]
           );
           System.out.println("try another question");
-          System.out.println("Enter any key to continue.");
+          System.out.println("Enter any key to continue.");   //prompt user to continue
           key.next();
         }
       }
 
       if (run == true) {
-        System.out.println("Play again? (y/n)");
+        System.out.println("Play again? (y/n)"); //prompt user to play again
         String play = key.next();
         if (!play.equals("y")) {
           run = false;
