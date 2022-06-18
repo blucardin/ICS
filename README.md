@@ -21,6 +21,6 @@ Third, I started coding the menus and setting up the file structure. Every game 
 Next, I programmed each game one by one. I started with the base logic needed to make the game work, then I added extra elements. The menus and shops were repeated almost identically for each game as they did not need to be re-written.
 
 ## Final Thoughts
-I will be honest, I could have put mroe work into this projects. I have done hackathons before where I have created some really cool things with a fraction of the time. I was buys working on other culminating assesment and I feel that this is satisfacotry for this course. 
+I will be honest, I could have put more work into this projects. I have done hackathons before where I have created some really cool things with a fraction of the time. I was buys working on other culminating assesment and I feel that this is satisfacotry for this course. 
 
 
