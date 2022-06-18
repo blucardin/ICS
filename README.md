@@ -1,9 +1,6 @@
 # ICS
 My cluminating assesment for for my introduction to computer science course. The instructor did not require me to create a repository, however it has helped me with the development. 
 
-Play the game at the link below: 
-https://replit.com/@NoahVirjee/ICS-1
-
 # Final Report
 ## How did you approach this project for each stage of the Software Development Cycle. Provide a rationale if needed (ie. Why did you choose to do something this way instead of that way?)
 
