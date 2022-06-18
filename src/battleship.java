@@ -1,8 +1,7 @@
-import java.util.Random;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+import java.util.Random;
+import java.util.Scanner;
 
 public class battleship {
 
@@ -13,21 +12,22 @@ public class battleship {
   static char[][] board = new char[SIZE][SIZE]; //create game board
   static Random rand = new Random();
 
-  static String[] directions = {"up", "right"};
+  static String[] directions = { "up", "right" };
 
   //generate a list of ships
   static String[][] random = {
-    {"5", directions[rand.nextInt(2)], "Aircraft Carrier"},
-    {"4", directions[rand.nextInt(2)], "Battleship"},
-    {"3", directions[rand.nextInt(2)], "Submarine"},
-    {"3", directions[rand.nextInt(2)], "Patrol Boat"},
-    {"2", directions[rand.nextInt(2)], "Destroyer"}
+    { "5", directions[rand.nextInt(2)], "Aircraft Carrier" },
+    { "4", directions[rand.nextInt(2)], "Battleship" },
+    { "3", directions[rand.nextInt(2)], "Submarine" },
+    { "3", directions[rand.nextInt(2)], "Patrol Boat" },
+    { "2", directions[rand.nextInt(2)], "Destroyer" },
   };
 
   //new 3dimensional arraylist
   static ArrayList<ArrayList<ArrayList<Integer>>> ships = new ArrayList<ArrayList<ArrayList<Integer>>>();
 
-  public static void generateRandomShips (String direction, int length) throws InterruptedException{
+  public static void generateRandomShips(String direction, int length)
+    throws InterruptedException {
     //generate random starting point for ship placement on board away from edges
     int x = rand.nextInt(SIZE - (2 * length)) + length;
     int y = rand.nextInt(SIZE - (2 * length)) + length;
@@ -35,16 +35,19 @@ public class battleship {
     ships.add(new ArrayList<ArrayList<Integer>>());
     for (int i = 0; i <= length; i++) {
       if (direction == "up") {
-        ships.get(ships.size() - 1).add(new ArrayList<Integer>(Arrays.asList(x, y + i)));
+        ships
+          .get(ships.size() - 1)
+          .add(new ArrayList<Integer>(Arrays.asList(x, y + i)));
       } else {
-        ships.get(ships.size() - 1).add(new ArrayList<Integer>(Arrays.asList(x + i, y)));
+        ships
+          .get(ships.size() - 1)
+          .add(new ArrayList<Integer>(Arrays.asList(x + i, y)));
       }
     }
     for (int q = 0; q < ships.size(); q++) {
       System.out.println(ships.get(q));
     }
   }
-  
 
   static char[][] answers = new char[SIZE][SIZE]; //create answer board
   static String msg = ""; //create message
@@ -70,8 +73,7 @@ public class battleship {
       for (int j = 0; j < board[i - 1].length; j++) {
         if (board[i - 1][j] == BACKGROUND) {
           System.out.print(board[i - 1][j] + " ");
-        }
-        else {
+        } else {
           System.out.print(board[i - 1][j] + "  ");
         }
       }
@@ -89,8 +91,7 @@ public class battleship {
       for (int j = 0; j < answers[i - 1].length; j++) {
         if (answers[i - 1][j] == BACKGROUND) {
           System.out.print(answers[i - 1][j] + " ");
-        }
-        else {
+        } else {
           System.out.print(answers[i - 1][j] + "  ");
         }
       }
@@ -147,7 +148,7 @@ public class battleship {
   public static void menu() throws InterruptedException {
     boolean run = true;
     for (int r = 0; r < random.length; r++) {
-     generateRandomShips(random[r][1], Integer.parseInt(random[r][0])); 
+      generateRandomShips(random[r][1], Integer.parseInt(random[r][0]));
     }
     while (run) {
       System.out.print("\033[H\033[2J"); //flush the screen

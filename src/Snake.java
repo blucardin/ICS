@@ -1,5 +1,5 @@
-/* This is the file that runs the snake game. 
- * It displays the menu with an animation. 
+/* This is the file that runs the snake game.
+ * It displays the menu with an animation.
  * Based on user input it will then either start the snake game, go to the shop, print the rules, or go back the main menu.
  */
 
@@ -13,16 +13,16 @@ class snake {
   static Scanner key = new Scanner(System.in); //create new scanner
 
   //create  array for colors
-  static String[] colors = {color.RESET, color.RESET, color.RED, color.GREEN};
+  static String[] colors = { color.RESET, color.RESET, color.RED, color.GREEN };
+
   // colors 0 represents menu color, 1 represents background color, 2 represents target color, 3 represents snake color
 
-
-  public static void shop() throws InterruptedException{ //Method for shop
-    while (true) { 
+  public static void shop() throws InterruptedException { //Method for shop
+    while (true) {
       System.out.print("\033[H\033[2J"); //clear screen
       System.out.flush();
 
-      System.out.println(colors[0]); 
+      System.out.println(colors[0]);
       System.out.println("Welcome to the shop!"); //print item menu and prompt user to choose an option
       System.out.println("You have " + app.coins + " coins.");
       System.out.println("What object would you like to buy a color for?");
@@ -33,7 +33,7 @@ class snake {
       System.out.println("5. Exit back to menu");
       System.out.println("Enter your choice: ");
       String choice = key.next(); //get user choice
-      if (choice.equals("5")){ //if user chooses 5, exit back to menu
+      if (choice.equals("5")) { //if user chooses 5, exit back to menu
         break;
       }
 
@@ -50,7 +50,7 @@ class snake {
       System.out.println("\nYou have " + app.coins + " coins.\n");
       System.out.println("Enter your choice: ");
       String colorChoice = key.next(); //get user choice
-      if (colorChoice.equals("5")){ //if user chooses 5, exit back to menu
+      if (colorChoice.equals("5")) { //if user chooses 5, exit back to menu
         break;
       }
 
@@ -62,7 +62,7 @@ class snake {
 
       boolean approved = false; //create boolean to check if the user has enough coins
 
-      switch(colorChoice) { //set color based on user choice
+      switch (colorChoice) { //set color based on user choice
         case "1":
           if (app.coins >= 10) { //if user has enough coins, set color and subtract coins
             app.coins -= 10; //subtract coins
@@ -96,7 +96,9 @@ class snake {
           break;
       }
       if (approved == true) {
-        System.out.println("Your purchase was approved! Your color is now equipped!"); //if user has enough coins, print success message
+        System.out.println(
+          "Your purchase was approved! Your color is now equipped!"
+        ); //if user has enough coins, print success message
         System.out.println("You have " + app.coins + " coins.");
       } else {
         System.out.println("You don't have enough coins!"); //if user doesn't have enough coins, print error message
@@ -117,21 +119,21 @@ class snake {
       blocks.add(
         new ArrayList<Integer>(
           Arrays.asList(STARTING_POS[0], STARTING_POS[1] - 1) // Add the head to the snake at the starting position
-        )
+        ) 
       ); //create starting snake
       blocks.add(
         new ArrayList<Integer>(Arrays.asList(STARTING_POS[0], STARTING_POS[1])) // Add the body to the snake at the starting position
       ); //create starting snake
 
       Random rand = new Random();
-      ArrayList<Integer> Target = new ArrayList<Integer>(  //create random target
+      ArrayList<Integer> Target = new ArrayList<Integer>( //create random target
         Arrays.asList(rand.nextInt(SIZE), rand.nextInt(SIZE))
-      ); 
+      );
 
       char[][] board = new char[SIZE][SIZE * 2]; //create game board
-      for (int i = 0; i < SIZE; i++) { 
+      for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE * 2; j++) {
-          board[i][j] = BACKGROUND;   //fill board with the backround (dots)
+          board[i][j] = BACKGROUND; //fill board with the background (dots)
         }
       }
 
@@ -170,7 +172,6 @@ class snake {
             direction = 'd';
             x++;
             triggered = true;
-
           } else if (character.equals("q")) { // if the user inputs q, quit the game
             reason = "You quit the game.";
             break;
@@ -179,15 +180,15 @@ class snake {
             System.out.println("Press any key to continue.");
             key.nextLine();
           } else {
-            character = "" + direction;  //if the user inputs nothing, or an invalid letter, set the character to the last direction 
+            character = "" + direction; //if the user inputs nothing, or an invalid letter, set the character to the last direction
             triggered = false; //set triggered to false, to make the code loop again
           }
-        } while (!triggered); //if the user inputted a valid direction, go forward with the code. Otherwise, loop back to the top and move in the last direction. 
+        } while (!triggered); //if the user inputted a valid direction, go forward with the code. Otherwise, loop back to the top and move in the last direction.
 
         if (triggered) {
-          for (int i = 0; i < SIZE; i++) {  
+          for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE * 2; j++) {
-              board[i][j] = BACKGROUND;          // Fill the board with the background character (dots)
+              board[i][j] = BACKGROUND; // Fill the board with the background character (dots)
             }
           }
 
@@ -199,7 +200,7 @@ class snake {
           coords.add(x);
 
           if (blocks.contains(coords)) { // if the new blck is already in the snake, the snake has hit itself
-            reason = "You hit yourself.";  // set the reason for death as, "You hit yourself."
+            reason = "You hit yourself."; // set the reason for death as, "You hit yourself."
             break;
           }
 
@@ -222,31 +223,31 @@ class snake {
         }
         triggered = true;
 
-        for (int i = 0; i < blocks.size(); i++) { //for each block in the snake, fill the board with * at that coordinate. 
+        for (int i = 0; i < blocks.size(); i++) { //for each block in the snake, fill the board with * at that coordinate.
           board[blocks.get(i).get(0)][blocks.get(i).get(1)] = '*';
         }
         board[Target.get(0)][Target.get(1)] = '0'; //fill the board with the target at the target's coordinates
 
-        System.out.println(colors[1]); //Give the board the 
+        System.out.println(colors[1]); //Give the board the
 
         for (int i = 0; i < SIZE; i++) {
           for (int j = 0; j < SIZE * 2; j++) { //iterate over each row and column of the board
-          if (board[i][j] == '*') {
-            System.out.print(colors[3] + board[i][j] + colors[1]); // if the character is * print the * with the color of the snake
-          } else if (board[i][j] == '0') {
-            System.out.print(colors[2] + board[i][j] + colors[1]); // if the character is 0 print the 0 with the color of the target
-          } else {
-            System.out.print(board[i][j]); // if the character is not * or 0, print the character with the color of the background
+            if (board[i][j] == '*') {
+              System.out.print(colors[3] + board[i][j] + colors[1]); // if the character is * print the * with the color of the snake
+            } else if (board[i][j] == '0') {
+              System.out.print(colors[2] + board[i][j] + colors[1]); // if the character is 0 print the 0 with the color of the target
+            } else {
+              System.out.print(board[i][j]); // if the character is not * or 0, print the character with the color of the background
+            }
           }
+          System.out.println(); //print a new line
         }
-        System.out.println(); //print a new line
       }
-    }
 
       System.out.print("\033[H\033[2J"); //clear the screen
       System.out.flush();
       System.out.println(color.RESET);
-      System.out.println("Game Over"); 
+      System.out.println("Game Over");
       System.out.println(reason); //print the reason for death
       System.out.println();
       Thread.sleep(1000);
@@ -254,9 +255,9 @@ class snake {
       System.out.println("Your score was: " + blocks.size()); //print the score
       int coinsEarned = (blocks.size() - 2) * 10; //calculate the coins earned
       app.coins += coinsEarned; //add the coins to the user's total
-      System.out.println("You earned " + coinsEarned  + " coins!"); //print the coins earned
-      System.out.println("You now have " + app.coins + " coins!");  //print the user's total coins
-      System.out.println(); 
+      System.out.println("You earned " + coinsEarned + " coins!"); //print the coins earned
+      System.out.println("You now have " + app.coins + " coins!"); //print the user's total coins
+      System.out.println();
 
       Thread.sleep(1000);
       System.out.println("Would you like to play again? (y/n)"); //ask the user if they want to play again
@@ -271,7 +272,7 @@ class snake {
     boolean menu = true;
     while (menu) {
       //loop over array
-      for (int i = 0; i < animation.length; i++) { //for each frame in the animation, flush the screen, print it, and wait for 125 miliseconds
+      for (int i = 0; i < animation.length; i++) { //for each frame in the animation, flush the screen, print it, and wait for 125 milliseconds
         System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.println("Welcome to Snake!");
@@ -323,7 +324,9 @@ class snake {
           System.out.print("\033[H\033[2J");
           System.out.flush();
           System.out.println("How to play: ");
-          System.out.println("Use the w, a, s, and d keys to change the snake's direction.");
+          System.out.println(
+            "Use the w, a, s, and d keys to change the snake's direction."
+          );
           System.out.println("Press enter to load the next frame of the game.");
           System.out.println("Eat the 0 to grow.");
           System.out.println("Avoid the walls and yourself.");

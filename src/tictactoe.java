@@ -1,18 +1,19 @@
 /* This is the file that runs the tic tac toe game.
- * It displays a menu, and gets user input. 
- * Based on what the user wants to do, it will either start the tic tac toe game, go to the shop, print the rules, or go back the main menu. 
+ * It displays a menu, and gets user input.
+ * Based on what the user wants to do, it will either start the tic tac toe game, go to the shop, print the rules, or go back the main menu.
  */
 
 import java.util.Random;
 import java.util.Scanner;
 
 public class tictactoe {
-   //create  array for colors
-  static String[] colors = {color.RESET, color.RESET, color.RED, color.GREEN};
+
+  //create  array for colors
+  static String[] colors = { color.RESET, color.RESET, color.RED, color.GREEN };
+
   // colors 0 represents menu color, 1 represents background color, 2 represents X color, 3 represents O color
 
-
-  public static void shop() throws InterruptedException{ //shop menu
+  public static void shop() throws InterruptedException { //shop menu
     while (true) {
       System.out.print("\033[H\033[2J"); //clear screen
       System.out.flush();
@@ -28,14 +29,14 @@ public class tictactoe {
       System.out.println("5. Exit back to menu");
       System.out.println("Enter your choice: ");
       String choice = key.next(); //get user choice
-      if (choice.equals("5")){ //if user chooses 5, return to menu
+      if (choice.equals("5")) { //if user chooses 5, return to menu
         break;
       }
 
       Thread.sleep(1000);
       System.out.print("\033[H\033[2J"); //clear screen
       System.out.flush();
-      
+
       System.out.println(colors[0]);
       System.out.println("What color would you like to buy?"); //print item menu and prompt user to choose an option
       System.out.println("1. Green (10 coins)");
@@ -46,7 +47,7 @@ public class tictactoe {
       System.out.println("\nYou have " + app.coins + " coins.\n");
       System.out.println("Enter your choice: ");
       String colorChoice = key.next(); //get user choice
-      if (colorChoice.equals("5")){  //if user chooses 5, return to menu
+      if (colorChoice.equals("5")) { //if user chooses 5, return to menu
         break;
       }
 
@@ -58,7 +59,7 @@ public class tictactoe {
 
       boolean approved = false; //create boolean to check if the user has enough coins
 
-      switch(colorChoice) { //set color based on user choice
+      switch (colorChoice) { //set color based on user choice
         case "1":
           if (app.coins >= 10) { //if user has enough coins, set color and subtract coins
             app.coins -= 10; //subtract coins
@@ -92,7 +93,9 @@ public class tictactoe {
           break;
       }
       if (approved == true) {
-        System.out.println("Your purchase was approved! Your color is now equipped!"); //if user has enough coins, print success message
+        System.out.println(
+          "Your purchase was approved! Your color is now equipped!"
+        ); //if user has enough coins, print success message
         System.out.println("You have " + app.coins + " coins.");
       } else {
         System.out.println("You don't have enough coins!"); //if user doesn't have enough coins, print error message
@@ -102,7 +105,6 @@ public class tictactoe {
       key.nextLine();
     }
   }
-
 
   //program to play tic tac toe
   static Scanner key = new Scanner(System.in); //create new scanner
@@ -122,14 +124,13 @@ public class tictactoe {
       for (int j = 0; j < board[i].length; j++) { // loop over each row
         if (board[i][j] == X) {
           System.out.print(colors[2] + board[i][j] + colors[1] + " | "); // if the character is X, print X in X's color
-        } 
-        else if (board[i][j] == O) {
+        } else if (board[i][j] == O) {
           System.out.print(colors[3] + board[i][j] + colors[1] + " | "); // if the character is O, print O in O's color
         } else {
           System.out.print("  | "); // if the character is BACKGROUND, print a space
         }
       }
-      System.out.println(); 
+      System.out.println();
     }
     System.out.println("-------------"); // print the last horizontal line
   }
@@ -150,7 +151,8 @@ public class tictactoe {
     if (board[0][0] == test && board[1][1] == test && board[2][2] == test) { //check 1st diagonal
       return true;
     } else if (
-      board[0][2] == test && board[1][1] == test && board[2][0] == test) { //check 2nd diagonal
+      board[0][2] == test && board[1][1] == test && board[2][0] == test
+    ) { //check 2nd diagonal
       return true;
     }
     return false;
@@ -161,7 +163,7 @@ public class tictactoe {
     while (run) { //if the user wants to play again the game will continue
       for (int i = 0; i < SIZE; i++) { //fill board with dots
         for (int j = 0; j < SIZE; j++) {
-          board[i][j] = BACKGROUND; 
+          board[i][j] = BACKGROUND;
         }
       }
 
@@ -261,7 +263,7 @@ public class tictactoe {
     while (run) {
       System.out.print("\033[H\033[2J"); //flush the screen
       System.out.flush();
-       System.out.println(colors[0]);
+      System.out.println(colors[0]);
       System.out.println("Welcome to Tic Tac Toe!"); //print welcome message
 
       Thread.sleep(1000); //wait to build suspense
@@ -285,7 +287,7 @@ public class tictactoe {
         case "3": // if they entered 3, print the rules, wait for input, then go to the beginning
           System.out.print("\033[H\033[2J"); //flush the screen
           System.out.flush();
-           System.out.println(colors[0]); 
+          System.out.println(colors[0]);
           System.out.println("How to play: ");
           System.out.println(
             "The goal of the game is to get three in a row. The first player to achieve this wins."
