@@ -405,11 +405,17 @@ public class battleship {
           System.out.print("\033[H\033[2J"); //flush the screen
           System.out.flush();
           System.out.println("How to play: ");
-          System.out.println("Use w, a, s, and d keys to move the snake.");
-          System.out.println("Eat the 0 to grow.");
-          System.out.println("Avoid the walls and yourself.");
-          System.out.println("Press 'p' to pause the game.");
-          System.out.println("Press 'q' to quit the game.");
+          System.out.println(
+            "The goal of the game is to sink all of the enemy's ships before they sink yours."
+          );
+          System.out.println("You will be given a map of the sea to fire at.");
+          System.out.println(
+            "When it is your turn, enter a column and row to fire a missile."
+          );
+          System.out.println(
+            "If you hit a ship, it will be marked with a 'H'."
+          );
+          System.out.println("If you miss, it will be marked with a 'X'.");
           Thread.sleep(1000);
           System.out.println("Press any key to return back to the menu:");
           key.next();
