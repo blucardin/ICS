@@ -1,2 +1,2 @@
 language = "bash"
-run = "javac FinalProject/src/*.java && cd FinalProject/src/ && java app"
+run = "javac src/*.java -d /bin && cd src/ && java app"
