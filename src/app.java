@@ -1,6 +1,11 @@
 /*  This is the main file that is run at start. 
  * It prints the welcome message and calls methods for each game based on what the user wants to play.
+ * 
  * All code formatting was done with Prittier: https://github.com/jhipster/prettier-java
+ * Array syntax was taken from: https://www.w3schools.com/java/java_arrays_multi.asp
+ * ArrayList syntax was taken from: https://www.w3schools.com/java/java_arraylist.asp 
+ * Switch statement syntax was taken from: https://www.w3schools.com/java/java_switch.asp
+ * Multi-dimensional arrayList syntax was taken from: https://stackoverflow.com/questions/4401850/how-to-create-a-multidimensional-arraylist-in-java
  */
 
 import java.util.Scanner;
