@@ -15,15 +15,15 @@ public class tictactoe {
       System.out.println(colors[0]);
       System.out.println("Welcome to the shop!");
       System.out.println("You have " + app.coins + " coins.");
-      System.out.println("What object would you like to buy a color for?");
+      System.out.println("What object would you like to buy a color for?"); //print item menu and prompt user to choose an option
       System.out.println("1. Menu");
       System.out.println("2. Background");
       System.out.println("3. O");
       System.out.println("4. X");
-      System.out.println("5. Exit back to main menu");
+      System.out.println("5. Exit back to menu");
       System.out.println("Enter your choice: ");
       String choice = key.next(); //get user choice
-      if (choice.equals("5")){
+      if (choice.equals("5")){ //if user chooses 5, return to menu
         break;
       }
 
@@ -32,18 +32,19 @@ public class tictactoe {
       System.out.flush();
       
       System.out.println(colors[0]);
-      System.out.println("What color would you like to buy?");
+      System.out.println("What color would you like to buy?"); //print item menu and prompt user to choose an option
       System.out.println("1. Green (10 coins)");
       System.out.println("2. Red (20 coins)");
       System.out.println("3. Blue (30 coins)");
       System.out.println("4. Yellow (40 coins)");
-      System.out.println("5. Exit back to main menu");
+      System.out.println("5. Exit back to menu");
+      System.out.println("\nYou have " + app.coins + " coins.\n");
       System.out.println("Enter your choice: ");
-      String colorChoice = key.next();
-      if (colorChoice.equals("5")){
+      String colorChoice = key.next(); //get user choice
+      if (colorChoice.equals("5")){  //if user chooses 5, return to menu
         break;
       }
-
+      
       Thread.sleep(1000);
       System.out.print("\033[H\033[2J"); //clear screen
       System.out.flush();
@@ -52,46 +53,46 @@ public class tictactoe {
 
       boolean approved = false; //create boolean to check if the user has enough coins
 
-      switch(colorChoice) { //set color
+      switch(colorChoice) { //set color based on user choice
         case "1":
-          if (app.coins >= 10) {
+          if (app.coins >= 10) { //if user has enough coins, set color and subtract coins
             app.coins -= 10; //subtract coins
-            colors[object] = color.GREEN;
-            approved = true;
+            colors[object] = color.GREEN; //set color
+            approved = true; //set approved to true
           }
           break;
         case "2":
-          if (app.coins >= 20) {
+          if (app.coins >= 20) { //see above
             app.coins -= 20;
             colors[object] = color.RED;
             approved = true;
           }
           break;
         case "3":
-          if (app.coins >= 30) {
+          if (app.coins >= 30) { //see above
             app.coins -= 30;
             colors[object] = color.BLUE;
             approved = true;
           }
           break;
         case "4":
-          if (app.coins >= 40) {
+          if (app.coins >= 40) { //see above
             app.coins -= 40;
             colors[object] = color.YELLOW;
             approved = true;
           }
         default:
-          System.out.println("Invalid choice!");
-          approved = true;
+          System.out.println("Invalid choice, try again."); //if user chooses an invalid choice, print error message
+          approved = false; //set approved to false
           break;
       }
       if (approved == true) {
-        System.out.println("Your purchase was approved! Your color is now equipped!");
+        System.out.println("Your purchase was approved! Your color is now equipped!"); //if user has enough coins, print success message
         System.out.println("You have " + app.coins + " coins.");
       } else {
-        System.out.println("You don't have enough coins!");
+        System.out.println("You don't have enough coins!"); //if user doesn't have enough coins, print error message
       }
-      System.out.println("Press enter to continue...");
+      System.out.println("Press enter to continue..."); //prompt user to continue
       key.nextLine();
       key.nextLine();
     }
